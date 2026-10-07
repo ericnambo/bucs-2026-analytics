@@ -90,6 +90,48 @@
     return rows;
   }
 
+  // Matchup from capped margin (ticket 06 swaps in the best back-tested method).
+  // Win probability is a logistic curve of the rating gap; marginScale sets how fast it saturates.
+  function buildMatchup(teams, games, rules, rows, idA, idB) {
+    const names = new Map(teams.map((t) => [t.id, t.name]));
+    const rowOf = new Map(rows.map((r) => [r.team, r]));
+    const rating = (id) => rowOf.get(id).avgMargin || 0;
+    const gap = rating(idA) - rating(idB);
+    const pA = 1 / (1 + Math.exp(-gap / rules.marginScale));
+    const favored = gap === 0 ? null : gap > 0 ? idA : idB;
+    const resultsOf = (id, opp) => games
+      .filter((g) => (g.home === id && g.away === opp) || (g.away === id && g.home === opp))
+      .map((g) => {
+        const mine = g.home === id;
+        return {
+          week: g.week,
+          scoreFor: mine ? g.homeScore : g.awayScore,
+          scoreAgainst: mine ? g.awayScore : g.homeScore,
+          result: g.tie ? 'T' : g.winner === id ? 'W' : 'L',
+          forfeit: g.forfeit,
+        };
+      })
+      .sort((x, y) => x.week - y.week);
+    const opponentsOf = (id) => new Set(games.filter((g) => g.home === id || g.away === id).map((g) => (g.home === id ? g.away : g.home)));
+    const oppB = opponentsOf(idB);
+    const commonOpponents = [...opponentsOf(idA)]
+      .filter((id) => oppB.has(id) && id !== idA && id !== idB)
+      .sort((x, y) => names.get(x).localeCompare(names.get(y)))
+      .map((id) => ({ id, name: names.get(id), teamA: resultsOf(idA, id), teamB: resultsOf(idB, id) }));
+    const confidence = `Small sample: ${names.get(idA)} has played ${rowOf.get(idA).games} games and ${names.get(idB)} ${rowOf.get(idB).games}. `
+      + 'This prediction uses average capped margin only and has not been back-tested yet, so treat it as a rough guide.';
+    return {
+      teamA: { id: idA, name: names.get(idA), rating: rating(idA), winProbability: pA },
+      teamB: { id: idB, name: names.get(idB), rating: rating(idB), winProbability: 1 - pA },
+      favored,
+      favoredName: favored ? names.get(favored) : null,
+      winProbability: 1 / (1 + Math.exp(-Math.abs(gap) / rules.marginScale)),
+      predictedMargin: Math.abs(gap),
+      confidence,
+      commonOpponents,
+    };
+  }
+
   function loadSeason({ games, schedule, settings }) {
     const rules = mergeSettings(settings);
     const teams = schedule.teams;
@@ -97,6 +139,15 @@
     const normalized = games.games.map((g) => normalizeGame(g, rules));
     return {
       powerRanking: () => buildPowerRanking(teams, normalized, rules),
+      matchup: (idA, idB) => buildMatchup(teams, normalized, rules, buildPowerRanking(teams, normalized, rules), idA, idB),
+      // First scheduled game for the team with no result yet.
+      nextOpponent(id) {
+        const done = new Set(normalized.map((g) => `${g.week}|${g.home}|${g.away}`));
+        const next = scheduled
+          .filter((g) => (g.home === id || g.away === id) && !done.has(`${g.week}|${g.home}|${g.away}`))
+          .sort((a, b) => a.week - b.week)[0];
+        return next ? { week: next.week, opponent: next.home === id ? next.away : next.home, home: next.home === id } : null;
+      },
       division: schedule.division,
       settings: rules,
       teams,

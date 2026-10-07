@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BAFL Peewee Analytics: Matchup</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 1rem auto; max-width: 60rem; padding: 0 1rem; color: #1a1a1a; background: #fff; }
+    nav ul { display: flex; gap: 1rem; list-style: none; padding: 0; }
+    .pickers { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+    label { display: flex; flex-direction: column; font-weight: 600; }
+    select { font: inherit; padding: .4rem; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 1rem; }
+    caption { text-align: left; font-weight: 600; padding-bottom: .5rem; }
+    th, td { border: 1px solid #767676; padding: .4rem .6rem; text-align: left; }
+    th { background: #eee; }
+    a { color: #0b4fa8; }
+    :focus-visible { outline: 3px solid #0b4fa8; outline-offset: 2px; }
+    .summary { font-size: 1.2em; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Views">
+    <ul>
+      <li><a href="ranking.html">Power ranking</a></li>
+      <li><a href="matchup.html" aria-current="page">Matchup</a></li>
+      <li><a href="index.html">Results</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h1>BAFL Peewee 2026: Matchup</h1>
+    <div class="pickers">
+      <label>Team A <select id="team-a"></select></label>
+      <label>Team B <select id="team-b"></select></label>
+    </div>
+    <p id="default-note"></p>
+    <section aria-live="polite" aria-labelledby="result-heading">
+      <h2 id="result-heading">Prediction</h2>
+      <p id="summary" class="summary"></p>
+      <p id="confidence"></p>
+    </section>
+    <h2>Common opponents</h2>
+    <div id="common"></div>
+  </main>
+  <script src="data/season-data.js"></script>
+  <script src="src/settings.js"></script>
+  <script src="src/core.js"></script>
+  <script src="src/matchup-app.js"></script>
+</body>
+</html>

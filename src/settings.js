@@ -15,6 +15,8 @@
     // Standings points (by-law 5.10.2): win 1, tie half, loss none.
     winPoints: 1,
     tiePoints: 0.5,
+    // Matchup: points of rating gap per logistic step; larger = probabilities stay closer to 50%.
+    marginScale: 14,
   };
   return { defaultSettings };
 });

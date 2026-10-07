@@ -203,3 +203,55 @@ test('rows flag the focus team', () => {
   assert.equal(byId(rows, 'c').isFocus, true);
   assert.equal(byId(rows, 'a').isFocus, false);
 });
+
+test('matchup names the favored team, win probability and predicted margin', () => {
+  const m = load(cleanGames()).matchup('a', 'c');
+  assert.equal(m.favored, 'a');
+  assert.ok(m.winProbability > 0.5 && m.winProbability < 1);
+  assert.ok(m.predictedMargin > 0);
+});
+
+test('matchup is symmetric: swapping teams flips the side but not the favorite', () => {
+  const season = load(cleanGames());
+  const ac = season.matchup('a', 'c');
+  const ca = season.matchup('c', 'a');
+  assert.equal(ca.favored, ac.favored);
+  assert.equal(ca.winProbability, ac.winProbability);
+  assert.equal(ca.predictedMargin, ac.predictedMargin);
+  assert.equal(ca.teamA.id, 'c');
+  assert.ok(Math.abs(ca.teamA.winProbability - (1 - ac.teamA.winProbability)) < 1e-12);
+});
+
+test('matchup between evenly rated teams has no favorite', () => {
+  const m = load([g(1, 'a', 14, 'b', 14)]).matchup('a', 'b');
+  assert.equal(m.favored, null);
+  assert.equal(m.winProbability, 0.5);
+  assert.equal(m.predictedMargin, 0);
+});
+
+test('matchup lists common opponents with each team\'s result', () => {
+  const m = load(cleanGames()).matchup('a', 'c');
+  assert.deepEqual(m.commonOpponents.map((o) => o.id), ['b', 'd']);
+  const b = m.commonOpponents.find((o) => o.id === 'b');
+  assert.deepEqual(b.teamA.map((r) => [r.week, r.scoreFor, r.scoreAgainst, r.result]), [[1, 20, 6, 'W']]);
+  assert.deepEqual(b.teamB.map((r) => [r.week, r.scoreFor, r.scoreAgainst, r.result]), [[2, 0, 13, 'L']]);
+});
+
+test('matchup with no common opponents says so and still predicts', () => {
+  const m = load([g(1, 'a', 20, 'b', 6), g(1, 'c', 7, 'd', 14)]).matchup('a', 'c');
+  assert.deepEqual(m.commonOpponents, []);
+  assert.ok(m.favored);
+});
+
+test('matchup confidence note mentions the small sample', () => {
+  const m = load(cleanGames()).matchup('a', 'c');
+  assert.match(m.confidence, /small sample/i);
+  assert.match(m.confidence, /2 games/);
+});
+
+test('next opponent is the first scheduled game without a result', () => {
+  const season = load(cleanGames());
+  assert.deepEqual(season.nextOpponent('a'), { week: 3, opponent: 'c', home: true });
+  assert.equal(season.nextOpponent('d').opponent, 'b');
+  assert.equal(load(cleanGames()).nextOpponent('zzz'), null);
+});
