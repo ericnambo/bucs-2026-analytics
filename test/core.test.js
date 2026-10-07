@@ -147,3 +147,59 @@ test('the real 2026 Peewee data passes the check', () => {
   assert.equal(season.games.length, 65);
   assert.equal(season.games.filter((x) => x.forfeit).length, 2);
 });
+
+// --- Power ranking table ---
+const byId = (rows, id) => rows.find((r) => r.team === id);
+
+test('power ranking orders by capped margin; forfeits count in record but not margin', () => {
+  const rows = load(cleanGames()).powerRanking();
+  assert.deepEqual(rows.map((r) => r.team), ['a', 'd', 'b', 'c']);
+  assert.deepEqual(rows.map((r) => r.rank), [1, 2, 3, 4]);
+  const d = byId(rows, 'd');
+  assert.equal(d.wins, 2);
+  assert.equal(d.record, '2-0');
+  assert.equal(d.avgMargin, 7); // the forfeit adds no margin
+  assert.equal(byId(rows, 'b').avgMargin, -0.5);
+  assert.equal(byId(rows, 'c').avgMargin, -10);
+});
+
+test('strength of schedule is the average win percentage of opponents faced', () => {
+  const rows = load(cleanGames()).powerRanking();
+  assert.equal(byId(rows, 'a').sos, 0.75);
+  assert.equal(byId(rows, 'd').sos, 0.25);
+});
+
+test('a tie counts half a win to each side and the record shows it', () => {
+  const rows = load([g(1, 'a', 14, 'b', 14)]).powerRanking();
+  const a = byId(rows, 'a');
+  assert.equal(a.record, '0-0-1');
+  assert.equal(a.winPct, 0.5);
+  assert.equal(a.avgMargin, 0);
+});
+
+test('equal margins fall back to record, then name', () => {
+  const rows = load([g(1, 'a', 10, 'b', 10), g(1, 'c', 10, 'd', 10), g(2, 'a', 10, 'c', 0), g(2, 'b', 0, 'd', 10)]).powerRanking();
+  // margins: a +5, c -5, b -5, d +5 ; a (1-0-1) and d (1-0-1) tie, b and c tie
+  assert.deepEqual(rows.map((r) => r.team), ['a', 'd', 'b', 'c']);
+});
+
+test('a team with a bye or no games is listed with no losses and no margin', () => {
+  const season = loadSeason({
+    games: { division: 'Peewee', games: [g(1, 'a', 20, 'b', 6)] },
+    schedule: { ...schedule, teams: [...teams, { id: 'e', name: 'E' }] },
+  });
+  const e = byId(season.powerRanking(), 'e');
+  assert.equal(e.games, 0);
+  assert.equal(e.record, '0-0');
+  assert.equal(e.avgMargin, null);
+  assert.equal(e.sos, null);
+  assert.equal(e.winPct, null);
+  assert.equal(season.powerRanking().at(-1).team, 'e');
+});
+
+test('rows flag the focus team', () => {
+  const season = loadSeason({ games: { division: 'Peewee', games: cleanGames() }, schedule, settings: { focusTeam: 'c' } });
+  const rows = season.powerRanking();
+  assert.equal(byId(rows, 'c').isFocus, true);
+  assert.equal(byId(rows, 'a').isFocus, false);
+});

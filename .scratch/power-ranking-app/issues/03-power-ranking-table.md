@@ -4,10 +4,10 @@
 
 **Blocked by:** 02
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] All 18 teams shown with record, capped margin and strength of schedule
-- [ ] Forfeits count in the record but not in margin; byes are ignored
-- [ ] Any column sorts by keyboard and the sort state is announced
-- [ ] Bucs row is identifiable without color
-- [ ] Core module tests cover ranking on small fixture seasons, including forfeit, tie and bye
+- [x] All 18 teams shown with record, capped margin and strength of schedule
+- [x] Forfeits count in the record but not in margin; byes are ignored
+- [x] Any column sorts by keyboard and the sort state is announced
+- [x] Bucs row is identifiable without color
+- [x] Core module tests cover ranking on small fixture seasons, including forfeit, tie and bye

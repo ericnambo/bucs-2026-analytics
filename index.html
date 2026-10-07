@@ -17,10 +17,17 @@
     tr.bucs th[scope="row"] { border-left: 6px solid #8a1c1c; }
     a { color: #0b4fa8; }
     :focus-visible { outline: 3px solid #0b4fa8; outline-offset: 2px; }
+    nav ul { display: flex; gap: 1rem; list-style: none; padding: 0; }
     .note { display: block; font-size: .9em; }
   </style>
 </head>
 <body>
+  <nav aria-label="Views">
+    <ul>
+      <li><a href="ranking.html">Power ranking</a></li>
+      <li><a href="index.html" aria-current="page">Results</a></li>
+    </ul>
+  </nav>
   <main>
     <h1>BAFL Peewee 2026: Results</h1>
     <form class="filters" id="filters" onsubmit="return false">

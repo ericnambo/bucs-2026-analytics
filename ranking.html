@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BAFL Peewee Analytics: Power ranking</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 1rem auto; max-width: 60rem; padding: 0 1rem; color: #1a1a1a; background: #fff; }
+    nav ul { display: flex; gap: 1rem; list-style: none; padding: 0; }
+    table { border-collapse: collapse; width: 100%; }
+    caption { text-align: left; font-weight: 600; padding-bottom: .5rem; }
+    th, td { border: 1px solid #767676; padding: .4rem .6rem; text-align: left; }
+    th { background: #eee; }
+    th button { font: inherit; font-weight: 700; background: none; border: 0; padding: .2rem; cursor: pointer; color: inherit; text-align: left; }
+    th[aria-sort] button::after { content: " \25B2"; }
+    th[aria-sort="descending"] button::after { content: " \25BC"; }
+    tr.bucs td, tr.bucs th[scope="row"] { background: #fff3d6; font-weight: 700; }
+    tr.bucs th[scope="row"] { border-left: 6px solid #8a1c1c; }
+    a { color: #0b4fa8; }
+    :focus-visible { outline: 3px solid #0b4fa8; outline-offset: 2px; }
+    .note { display: block; font-size: .9em; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Views">
+    <ul>
+      <li><a href="ranking.html" aria-current="page">Power ranking</a></li>
+      <li><a href="index.html">Results</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h1>BAFL Peewee 2026: Power ranking</h1>
+    <p>Default order is average capped margin (each game limited to 42 points), then record. Ties count as half a win. Forfeits count in the record but not in margin. Strength of schedule is the average win percentage of a team's opponents.</p>
+    <p id="status" role="status"></p>
+    <table>
+      <caption>Peewee teams. Use the column buttons to sort.</caption>
+      <thead><tr id="head-row"></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+  <script src="data/season-data.js"></script>
+  <script src="src/settings.js"></script>
+  <script src="src/core.js"></script>
+  <script src="src/ranking.js"></script>
+  <script src="src/ranking-app.js"></script>
+</body>
+</html>

@@ -46,16 +46,62 @@
     };
   }
 
+  // One row per team: record (ties half), average capped margin, strength of schedule.
+  // Forfeits count in the record but carry no margin. Teams with no games (byes) are never charged a loss.
+  function buildPowerRanking(teams, games, rules) {
+    const stats = new Map(teams.map((t) => [t.id, { team: t.id, name: t.name, wins: 0, losses: 0, ties: 0, marginSum: 0, marginGames: 0, opponents: [] }]));
+    for (const g of games) {
+      const home = stats.get(g.home);
+      const away = stats.get(g.away);
+      if (!home || !away) continue;
+      home.opponents.push(g.away);
+      away.opponents.push(g.home);
+      if (g.tie) { home.ties++; away.ties++; }
+      else { stats.get(g.winner).wins++; stats.get(g.loser).losses++; }
+      if (g.cappedMargin !== null) {
+        const homeMargin = g.winner === g.home ? g.cappedMargin : g.winner === g.away ? -g.cappedMargin : 0;
+        home.marginSum += homeMargin; home.marginGames++;
+        away.marginSum -= homeMargin; away.marginGames++;
+      }
+    }
+    const played = (s) => s.wins + s.losses + s.ties;
+    const points = (s) => s.wins * rules.winPoints + s.ties * rules.tiePoints;
+    const winPct = (s) => (played(s) ? points(s) / played(s) : null);
+    const rows = [...stats.values()].map((s) => {
+      const oppPcts = s.opponents.map((id) => winPct(stats.get(id))).filter((p) => p !== null);
+      return {
+        team: s.team,
+        name: s.name,
+        isFocus: s.team === rules.focusTeam,
+        games: played(s),
+        wins: s.wins,
+        losses: s.losses,
+        ties: s.ties,
+        record: `${s.wins}-${s.losses}${s.ties ? '-' + s.ties : ''}`,
+        winPct: winPct(s),
+        avgMargin: s.marginGames ? s.marginSum / s.marginGames : null,
+        sos: oppPcts.length ? oppPcts.reduce((a, b) => a + b, 0) / oppPcts.length : null,
+      };
+    });
+    // Default order: capped margin, then record, then name. No data sorts last.
+    const num = (v) => (v === null ? -Infinity : v);
+    rows.sort((a, b) => num(b.avgMargin) - num(a.avgMargin) || num(b.winPct) - num(a.winPct) || a.name.localeCompare(b.name));
+    rows.forEach((r, i) => { r.rank = i + 1; });
+    return rows;
+  }
+
   function loadSeason({ games, schedule, settings }) {
     const rules = mergeSettings(settings);
     const teams = schedule.teams;
     const scheduled = schedule.games;
+    const normalized = games.games.map((g) => normalizeGame(g, rules));
     return {
+      powerRanking: () => buildPowerRanking(teams, normalized, rules),
       division: schedule.division,
       settings: rules,
       teams,
       schedule: scheduled,
-      games: games.games.map((g) => normalizeGame(g, rules)),
+      games: normalized,
       // Teams with no scheduled game in a week. Byes are ignored in all calculations.
       byes(week) {
         const playing = new Set();
