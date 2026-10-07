@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BAFL Peewee Analytics: Schedule</title>
+  <title>BAFL Peewee Analytics: Playoff picture</title>
   <style>
     body { font-family: system-ui, sans-serif; margin: 1rem auto; max-width: 60rem; padding: 0 1rem; color: #1a1a1a; background: #fff; }
     nav ul { display: flex; gap: 1rem; list-style: none; padding: 0; }
@@ -16,6 +16,7 @@
     :focus-visible { outline: 3px solid #0b4fa8; outline-offset: 2px; }
     tr.bucs td, tr.bucs th[scope="row"] { background: #fff3d6; font-weight: 700; }
     tr.bucs th[scope="row"] { border-left: 6px solid #8a1c1c; }
+    .flag { border: 2px solid #8a1c1c; padding: .5rem 1rem; margin-bottom: 1rem; }
   </style>
 </head>
 <body>
@@ -23,25 +24,29 @@
     <ul>
       <li><a href="ranking.html">Power ranking</a></li>
       <li><a href="matchup.html">Matchup</a></li>
-      <li><a href="playoff.html">Playoff picture</a></li>
-      <li><a href="schedule.html" aria-current="page">Schedule</a></li>
+      <li><a href="playoff.html" aria-current="page">Playoff picture</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
       <li><a href="index.html">Results</a></li>
     </ul>
   </nav>
   <main>
-    <h1>BAFL Peewee 2026: Schedule</h1>
-    <p>Every scheduled game, with the score once it has been played. Games not yet played show "Scheduled".</p>
+    <h1>BAFL Peewee 2026: Playoff picture</h1>
+    <p>If the playoffs started today. Seeds follow the official standings (win 1, tie half); ties are broken head-to-head.</p>
+    <div id="flags" aria-live="polite"></div>
     <table>
-      <caption>Peewee schedule and scores</caption>
-      <thead>
-        <tr><th scope="col">Week</th><th scope="col">Date</th><th scope="col">Away team</th><th scope="col">Away score</th><th scope="col">Home team</th><th scope="col">Home score</th><th scope="col">Status</th><th scope="col">Bye teams</th></tr>
-      </thead>
-      <tbody id="rows"></tbody>
+      <caption>Seeds</caption>
+      <thead><tr><th scope="col">Seed</th><th scope="col">Team</th><th scope="col">Record</th><th scope="col">Tie status</th></tr></thead>
+      <tbody id="seeds"></tbody>
+    </table>
+    <table>
+      <caption>First-round pairings</caption>
+      <thead><tr><th scope="col">Matchup</th><th scope="col">Higher seed</th><th scope="col">Lower seed</th></tr></thead>
+      <tbody id="pairings"></tbody>
     </table>
   </main>
   <script src="data/season-data.js"></script>
   <script src="src/settings.js"></script>
   <script src="src/core.js"></script>
-  <script src="src/schedule-app.js"></script>
+  <script src="src/playoff-app.js"></script>
 </body>
 </html>

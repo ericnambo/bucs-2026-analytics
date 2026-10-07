@@ -132,6 +132,73 @@
     };
   }
 
+  // Top seeds by official standings (win 1, tie half). Tied teams are split head-to-head;
+  // anything head-to-head cannot split is flagged for coin flip or play-in (by-law 5.11.3), never silently resolved.
+  function buildPlayoffPicture(teams, games, rules) {
+    const names = new Map(teams.map((t) => [t.id, t.name]));
+    const rows = new Map(teams.map((t) => [t.id, { team: t.id, name: t.name, isFocus: t.id === rules.focusTeam, wins: 0, losses: 0, ties: 0 }]));
+    for (const g of games) {
+      if (!rows.has(g.home) || !rows.has(g.away)) continue;
+      if (g.tie) { rows.get(g.home).ties++; rows.get(g.away).ties++; }
+      else { rows.get(g.winner).wins++; rows.get(g.loser).losses++; }
+    }
+    const points = (r) => r.wins * rules.winPoints + r.ties * rules.tiePoints;
+    const standings = [...rows.values()].sort((a, b) => points(b) - points(a) || a.name.localeCompare(b.name));
+
+    // Points each team earned in games among the tied teams only.
+    const headToHead = (group) => {
+      const ids = new Set(group.map((r) => r.team));
+      const pts = new Map(group.map((r) => [r.team, 0]));
+      for (const g of games) {
+        if (!ids.has(g.home) || !ids.has(g.away)) continue;
+        if (g.tie) { pts.set(g.home, pts.get(g.home) + rules.tiePoints); pts.set(g.away, pts.get(g.away) + rules.tiePoints); }
+        else pts.set(g.winner, pts.get(g.winner) + rules.winPoints);
+      }
+      return pts;
+    };
+
+    const ordered = [];
+    const flags = [];
+    for (let i = 0; i < standings.length;) {
+      let j = i;
+      while (j < standings.length && points(standings[j]) === points(standings[i])) j++;
+      const group = standings.slice(i, j);
+      const inField = i < rules.playoffTeams;
+      if (group.length === 1) ordered.push({ row: group[0], tie: null });
+      else if (group.length === 2) {
+        const h2h = headToHead(group);
+        const [x, y] = group;
+        if (h2h.get(x.team) !== h2h.get(y.team)) {
+          (h2h.get(x.team) > h2h.get(y.team) ? [x, y] : [y, x]).forEach((row) => ordered.push({ row, tie: null }));
+        } else group.forEach((row) => ordered.push({ row, tie: { kind: 'coin-flip-or-play-in', group } }));
+      } else group.forEach((row) => ordered.push({ row, tie: { kind: 'coin-flip-or-play-in', group } }));
+      if (inField && ordered.slice(i, j).some((o) => o.tie)) {
+        const tiedNames = group.map((r) => r.name);
+        flags.push({
+          teams: tiedNames,
+          seeds: group.map((_, k) => i + k + 1),
+          message: `${tiedNames.join(', ')} are tied and head-to-head does not settle it. Coin flip or play-in needed (by-law 5.11.3).`,
+        });
+      }
+      i = j;
+    }
+
+    const seeds = ordered.slice(0, rules.playoffTeams).map(({ row, tie }, k) => ({
+      seed: k + 1,
+      team: row.team,
+      name: row.name,
+      isFocus: row.isFocus,
+      wins: row.wins,
+      losses: row.losses,
+      ties: row.ties,
+      record: `${row.wins}-${row.losses}${row.ties ? '-' + row.ties : ''}`,
+      tie: tie ? { kind: tie.kind, with: tie.group.filter((r) => r.team !== row.team).map((r) => names.get(r.team)) } : null,
+    }));
+    const pairings = [];
+    for (let k = 0; k < Math.floor(seeds.length / 2); k++) pairings.push({ high: seeds[k], low: seeds[seeds.length - 1 - k] });
+    return { size: rules.playoffTeams, seeds, pairings, flags };
+  }
+
   function loadSeason({ games, schedule, settings }) {
     const rules = mergeSettings(settings);
     const teams = schedule.teams;
@@ -139,6 +206,7 @@
     const normalized = games.games.map((g) => normalizeGame(g, rules));
     return {
       powerRanking: () => buildPowerRanking(teams, normalized, rules),
+      playoffPicture: () => buildPlayoffPicture(teams, normalized, rules),
       matchup: (idA, idB) => buildMatchup(teams, normalized, rules, buildPowerRanking(teams, normalized, rules), idA, idB),
       // First scheduled game for the team with no result yet.
       nextOpponent(id) {
