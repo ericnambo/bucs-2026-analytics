@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BAFL Peewee Analytics</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 1rem auto; max-width: 60rem; padding: 0 1rem; color: #1a1a1a; background: #fff; }
+    .filters { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+    label { display: flex; flex-direction: column; font-weight: 600; }
+    select, button { font: inherit; padding: .4rem; }
+    table { border-collapse: collapse; width: 100%; }
+    caption { text-align: left; font-weight: 600; padding-bottom: .5rem; }
+    th, td { border: 1px solid #767676; padding: .4rem .6rem; text-align: left; }
+    th { background: #eee; }
+    tr.bucs td { background: #fff3d6; font-weight: 700; border-left: 0; border-right: 0; }
+    tr.bucs th[scope="row"] { border-left: 6px solid #8a1c1c; }
+    a { color: #0b4fa8; }
+    :focus-visible { outline: 3px solid #0b4fa8; outline-offset: 2px; }
+    .note { display: block; font-size: .9em; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>BAFL Peewee 2026: Results</h1>
+    <form class="filters" id="filters" onsubmit="return false">
+      <label>Week
+        <select id="week"><option value="">All weeks</option></select>
+      </label>
+      <label>Team
+        <select id="team"><option value="">All teams</option></select>
+      </label>
+      <button type="button" id="reset">Reset filters</button>
+    </form>
+    <p id="status" role="status"></p>
+    <table>
+      <caption>Peewee game results</caption>
+      <thead>
+        <tr><th scope="col">Week</th><th scope="col">Away team</th><th scope="col">Away score</th><th scope="col">Home team</th><th scope="col">Home score</th><th scope="col">Notes</th><th scope="col">Source</th></tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+  <script src="data/season-data.js"></script>
+  <script src="src/settings.js"></script>
+  <script src="src/core.js"></script>
+  <script src="src/results.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>

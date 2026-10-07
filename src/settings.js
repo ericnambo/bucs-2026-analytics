@@ -6,6 +6,8 @@
   const defaultSettings = {
     // A game's point difference is limited to this many points (CONTEXT: Capped margin).
     marginCap: 42,
+    // The team the app highlights as "the Bucs".
+    focusTeam: 'bay-area-buccaneers',
     // Size of the playoff field (assumed per the user; by-laws do not fix it).
     playoffTeams: 8,
     // Forfeit = 1-0 win (by-law 3.2.6). Counts in the record, not in margin or rating.

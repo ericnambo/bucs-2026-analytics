@@ -4,6 +4,7 @@
   "description": "Power rankings and playoff outlook for the Bay Area Buccaneers Peewee team, BAFL 2026",
   "scripts": {
     "test": "node --test",
-    "check": "node scripts/check-data.js"
+    "check": "node scripts/check-data.js",
+    "build": "node scripts/build-data.js"
   }
 }
