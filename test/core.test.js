@@ -266,3 +266,74 @@ test('schedule rows list every scheduled game with its score once played, plus b
   assert.equal(rows.find((r) => r.week === 2 && r.home === 'd').forfeit, true);
   assert.deepEqual(rows.filter((r) => r.week === 4).map((r) => r.byes), [['B', 'C']]);
 });
+
+// --- Rating methods and back-test ---
+// Weeks 1-2 build the ratings; the back-test (starting week 3) then predicts week 3.
+// Known answer: opponent-adjusted margin picks both week-3 winners, every other method misses one.
+const rateGames = (week3) => [
+  g(1, 'a', 4, 'b', 26), g(1, 'c', 14, 'd', 12),
+  g(2, 'a', 28, 'c', 5), g(2, 'b', 22, 'd', 1),
+  ...week3,
+];
+const week3 = () => [g(3, 'a', 5, 'b', 9), g(3, 'c', 1, 'd', 22)];
+
+test('rows carry Elo and opponent-adjusted ratings for every team', () => {
+  const rows = load(rateGames([])).powerRanking();
+  for (const r of rows) {
+    assert.equal(typeof r.elo, 'number');
+    assert.equal(typeof r.adjusted, 'number');
+  }
+  assert.ok(byId(rows, 'b').elo > byId(rows, 'd').elo);
+  assert.ok(byId(rows, 'b').adjusted > byId(rows, 'd').adjusted);
+});
+
+test('opponent-adjusted ratings settle: centered on zero and each equals its average margin plus opponent rating', () => {
+  const rows = load(rateGames([])).powerRanking();
+  assert.ok(Math.abs(rows.reduce((sum, r) => sum + r.adjusted, 0)) < 1e-9);
+  // Each team's rating equals its average (margin + opponent rating): check team A, who beat C by 23 and lost to B by 22.
+  const a = byId(rows, 'a').adjusted;
+  const expected = ((-22 + byId(rows, 'b').adjusted) + (23 + byId(rows, 'c').adjusted)) / 2;
+  assert.ok(Math.abs(a - expected) < 1e-6);
+});
+
+test('back-test scores each method by winners picked using only earlier weeks', () => {
+  const bt = load(rateGames(week3())).backTest();
+  const m = Object.fromEntries(bt.methods.map((x) => [x.key, x]));
+  assert.equal(bt.startWeek, 3);
+  for (const x of bt.methods) assert.equal(x.tested, 2);
+  assert.equal(m.adjusted.correct, 2);
+  assert.equal(m.adjusted.accuracy, 1);
+  for (const key of ['margin', 'elo', 'winPct']) {
+    assert.equal(m[key].correct, 1);
+    assert.equal(m[key].accuracy, 0.5);
+  }
+});
+
+test('the best back-tested method is marked and drives power rank and matchup', () => {
+  const season = load(rateGames(week3()));
+  const bt = season.backTest();
+  assert.equal(bt.best, 'adjusted');
+  assert.deepEqual(bt.methods.filter((x) => x.isBest).map((x) => x.key), ['adjusted']);
+  const rows = season.powerRanking();
+  assert.equal(rows[0].ratingMethod, 'adjusted');
+  assert.equal(rows[0].rating, rows[0].adjusted);
+  assert.deepEqual(rows.map((r) => r.adjusted), [...rows.map((r) => r.adjusted)].sort((x, y) => y - x));
+  const m = season.matchup('a', 'b');
+  assert.equal(m.method, 'adjusted');
+  assert.match(m.confidence, /Opponent-adjusted margin/);
+  assert.match(m.confidence, /2 of 2/);
+});
+
+test('back-test skips ties and forfeits, and reports the sample size', () => {
+  const bt = load(rateGames([g(3, 'a', 10, 'b', 10), g(3, 'c', 1, 'd', 0, { forfeit: true })])).backTest();
+  for (const x of bt.methods) assert.equal(x.tested, 0);
+});
+
+test('with nothing to back-test, no method is crowned best and margin is the fallback', () => {
+  const season = load(cleanGames());
+  const bt = season.backTest();
+  assert.equal(bt.methods.every((x) => x.accuracy === null), true);
+  assert.equal(bt.methods.some((x) => x.isBest), false);
+  assert.deepEqual(season.powerRanking().map((r) => r.team), ['a', 'd', 'b', 'c']);
+  assert.match(season.matchup('a', 'c').confidence, /not been back-tested/);
+});

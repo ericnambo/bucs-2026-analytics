@@ -17,6 +17,13 @@
     tiePoints: 0.5,
     // Matchup: points of rating gap per logistic step; larger = probabilities stay closer to 50%.
     marginScale: 14,
+    // Back-test starts at this week: teams are rated on earlier weeks only, so Weeks 1-2 build the first ratings.
+    backTestStartWeek: 3,
+    // Elo: starting rating and how far one game can move it.
+    eloStart: 1500,
+    eloK: 32,
+    // Rating gap per logistic step for each method (margin methods use marginScale; Elo uses the standard 400-point scale).
+    ratingScale: { elo: 400 / Math.LN10, winPct: 0.3 },
   };
   return { defaultSettings };
 });

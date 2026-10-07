@@ -16,6 +16,9 @@
     th[aria-sort="descending"] button::after { content: " \25BC"; }
     tr.bucs td, tr.bucs th[scope="row"] { background: #fff3d6; font-weight: 700; }
     tr.bucs th[scope="row"] { border-left: 6px solid #8a1c1c; }
+    th.best, td.best { background: #e3efe3; }
+    th.best { border-bottom: 4px solid #1b5e20; }
+    tr.best th[scope="row"], tr.best td { background: #e3efe3; font-weight: 700; }
     a { color: #0b4fa8; }
     :focus-visible { outline: 3px solid #0b4fa8; outline-offset: 2px; }
     .note { display: block; font-size: .9em; }
@@ -33,12 +36,19 @@
   </nav>
   <main>
     <h1>BAFL Peewee 2026: Power ranking</h1>
-    <p>Default order is average capped margin (each game limited to 42 points), then record. Ties count as half a win. Forfeits count in the record but not in margin. Strength of schedule is the average win percentage of a team's opponents.</p>
+    <p>Default order is the best back-tested rating, then record. Margins are capped at 42 points per game. Ties count as half a win. Forfeits count in the record but not in margin. Strength of schedule is the average win percentage of a team's opponents.</p>
     <p id="status" role="status"></p>
     <table>
       <caption>Peewee teams. Use the column buttons to sort.</caption>
       <thead><tr id="head-row"></tr></thead>
       <tbody id="rows"></tbody>
+    </table>
+    <h2>Back-test: which rating picks winners best?</h2>
+    <p id="backtest-note"></p>
+    <table>
+      <caption>Back-test results by rating method</caption>
+      <thead><tr><th scope="col">Method</th><th scope="col">Accuracy</th><th scope="col">Winners picked</th><th scope="col">Games tested</th></tr></thead>
+      <tbody id="backtest-rows"></tbody>
     </table>
   </main>
   <script src="data/season-data.js"></script>

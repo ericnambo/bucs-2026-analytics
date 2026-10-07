@@ -7,8 +7,10 @@
   const columns = [
     { key: 'rank', label: 'Power rank', type: 'number', first: 'asc' },
     { key: 'name', label: 'Team', type: 'text', first: 'asc' },
-    { key: 'record', label: 'Record', type: 'number', sortKey: 'winPct', first: 'desc' },
-    { key: 'avgMargin', label: 'Avg capped margin', type: 'number', first: 'desc' },
+    { key: 'record', label: 'Record', type: 'number', sortKey: 'winPct', first: 'desc', method: 'winPct' },
+    { key: 'avgMargin', label: 'Avg capped margin', type: 'number', first: 'desc', method: 'margin' },
+    { key: 'adjusted', label: 'Opponent-adjusted margin', type: 'number', first: 'desc', method: 'adjusted' },
+    { key: 'elo', label: 'Elo', type: 'number', first: 'desc', method: 'elo' },
     { key: 'sos', label: 'Strength of schedule', type: 'number', first: 'desc' },
   ];
 

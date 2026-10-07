@@ -2,11 +2,14 @@
 (function () {
   const season = BaflCore.loadSeason({ games: BaflData.games, schedule: BaflData.schedule, settings: BaflSettings.defaultSettings });
   const rows = season.powerRanking();
+  const backTest = season.backTest();
   const $ = (id) => document.getElementById(id);
   let sort = { key: 'rank', direction: 'asc' };
 
   const fmt = {
     avgMargin: (v) => (v === null ? 'n/a' : (v > 0 ? '+' : '') + v.toFixed(1)),
+    adjusted: (v) => (v === null ? 'n/a' : (v > 0 ? '+' : '') + v.toFixed(1)),
+    elo: (v) => (v === null ? 'n/a' : Math.round(v)),
     sos: (v) => (v === null ? 'n/a' : v.toFixed(3)),
   };
 
@@ -19,6 +22,13 @@
       const b = document.createElement('button');
       b.type = 'button';
       b.textContent = c.label;
+      if (c.method && c.method === backTest.best) {
+        th.className = 'best';
+        const tag = document.createElement('span');
+        tag.className = 'note';
+        tag.textContent = 'Best back-tested';
+        b.appendChild(tag);
+      }
       b.addEventListener('click', () => {
         sort = sort.key === c.key
           ? { key: c.key, direction: sort.direction === 'asc' ? 'desc' : 'asc' }
@@ -54,7 +64,9 @@
         tag.textContent = 'Bucs';
         team.appendChild(tag);
       }
-      tr.append(cell('td', r.rank), team, cell('td', r.record), cell('td', fmt.avgMargin(r.avgMargin)), cell('td', fmt.sos(r.sos)));
+      const tds = [cell('td', r.rank), team, cell('td', r.record), cell('td', fmt.avgMargin(r.avgMargin)), cell('td', fmt.adjusted(r.adjusted)), cell('td', fmt.elo(r.elo)), cell('td', fmt.sos(r.sos))];
+      BaflRanking.columns.forEach((c, i) => { if (c.method && c.method === backTest.best) tds[i].className = 'best'; });
+      tr.append(...tds);
       body.appendChild(tr);
     });
     if (announce) {
@@ -63,6 +75,27 @@
     }
   }
 
+  function buildBackTest() {
+    const body = $('backtest-rows');
+    backTest.methods.forEach((m) => {
+      const tr = document.createElement('tr');
+      if (m.isBest) tr.className = 'best';
+      const name = cell('th', m.label, 'row');
+      if (m.isBest) {
+        const tag = document.createElement('span');
+        tag.className = 'note';
+        tag.textContent = 'Best back-tested';
+        name.appendChild(tag);
+      }
+      tr.append(name, cell('td', m.accuracy === null ? 'n/a' : `${Math.round(m.accuracy * 100)}%`), cell('td', `${m.correct} of ${m.tested}`), cell('td', m.tested));
+      body.appendChild(tr);
+    });
+    $('backtest-note').textContent = backTest.best
+      ? `Each method rated teams on earlier weeks only, then predicted each game from Week ${backTest.startWeek} on. The best method drives Power rank and the Matchup view. Small sample: treat differences of a game or two as noise.`
+      : 'No games to back-test yet. Power rank uses average capped margin.';
+  }
+
   buildHeader();
+  buildBackTest();
   render(false);
 })();
