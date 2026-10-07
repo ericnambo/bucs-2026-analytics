@@ -1,0 +1,576 @@
+{
+  "division": "Peewee",
+  "season": 2026,
+  "teams": [
+    {
+      "id": "angleton-wildcats",
+      "name": "Angleton Wildcats"
+    },
+    {
+      "id": "bay-area-buccaneers",
+      "name": "Bay Area Buccaneers"
+    },
+    {
+      "id": "brazosport-longhorns",
+      "name": "Brazosport Longhorns"
+    },
+    {
+      "id": "dickinson-gators",
+      "name": "Dickinson Gators"
+    },
+    {
+      "id": "east-end-eagles",
+      "name": "East End Eagles"
+    },
+    {
+      "id": "hitchcock-red-raiders",
+      "name": "Hitchcock Red Raiders"
+    },
+    {
+      "id": "la-marque-chargers",
+      "name": "La Marque Chargers"
+    },
+    {
+      "id": "la-porte-texans",
+      "name": "La Porte Texans"
+    },
+    {
+      "id": "league-city-49ers",
+      "name": "League City 49ers"
+    },
+    {
+      "id": "magnolia-park-sharks",
+      "name": "Magnolia Park Sharks"
+    },
+    {
+      "id": "manvel-texans",
+      "name": "Manvel Texans"
+    },
+    {
+      "id": "pasadena-panthers",
+      "name": "Pasadena Panthers"
+    },
+    {
+      "id": "pearland-hurricanes",
+      "name": "Pearland Hurricanes"
+    },
+    {
+      "id": "pearland-patriots",
+      "name": "Pearland Patriots"
+    },
+    {
+      "id": "pearland-texans",
+      "name": "Pearland Texans"
+    },
+    {
+      "id": "santa-fe-braves",
+      "name": "Santa Fe Braves"
+    },
+    {
+      "id": "sagemont-cowboys",
+      "name": "Sagemont Cowboys"
+    },
+    {
+      "id": "texas-city-stingrays",
+      "name": "Texas City Stingrays"
+    }
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "date": "2026-08-15"
+    },
+    {
+      "week": 2,
+      "date": "2026-08-22"
+    },
+    {
+      "week": 3,
+      "date": "2026-08-29"
+    },
+    {
+      "week": 4,
+      "date": "2026-09-05"
+    },
+    {
+      "week": 5,
+      "date": "2026-09-12"
+    },
+    {
+      "week": 6,
+      "date": "2026-09-19"
+    },
+    {
+      "week": 7,
+      "date": "2026-09-26"
+    },
+    {
+      "week": 8,
+      "date": "2026-10-03"
+    },
+    {
+      "week": 9,
+      "date": "2026-10-10"
+    },
+    {
+      "week": 10,
+      "date": "2026-10-17"
+    },
+    {
+      "week": 11,
+      "date": "2026-10-24"
+    }
+  ],
+  "games": [
+    {
+      "week": 1,
+      "home": "angleton-wildcats",
+      "away": "sagemont-cowboys"
+    },
+    {
+      "week": 2,
+      "home": "la-marque-chargers",
+      "away": "angleton-wildcats"
+    },
+    {
+      "week": 3,
+      "home": "east-end-eagles",
+      "away": "angleton-wildcats"
+    },
+    {
+      "week": 4,
+      "home": "angleton-wildcats",
+      "away": "hitchcock-red-raiders"
+    },
+    {
+      "week": 6,
+      "home": "pasadena-panthers",
+      "away": "angleton-wildcats"
+    },
+    {
+      "week": 7,
+      "home": "angleton-wildcats",
+      "away": "bay-area-buccaneers"
+    },
+    {
+      "week": 8,
+      "home": "manvel-texans",
+      "away": "angleton-wildcats"
+    },
+    {
+      "week": 9,
+      "home": "angleton-wildcats",
+      "away": "texas-city-stingrays"
+    },
+    {
+      "week": 10,
+      "home": "angleton-wildcats",
+      "away": "league-city-49ers"
+    },
+    {
+      "week": 11,
+      "home": "brazosport-longhorns",
+      "away": "angleton-wildcats"
+    },
+    {
+      "week": 1,
+      "home": "bay-area-buccaneers",
+      "away": "pearland-hurricanes"
+    },
+    {
+      "week": 2,
+      "home": "brazosport-longhorns",
+      "away": "bay-area-buccaneers"
+    },
+    {
+      "week": 3,
+      "home": "bay-area-buccaneers",
+      "away": "league-city-49ers"
+    },
+    {
+      "week": 5,
+      "home": "bay-area-buccaneers",
+      "away": "hitchcock-red-raiders"
+    },
+    {
+      "week": 6,
+      "home": "dickinson-gators",
+      "away": "bay-area-buccaneers"
+    },
+    {
+      "week": 8,
+      "home": "bay-area-buccaneers",
+      "away": "pearland-patriots"
+    },
+    {
+      "week": 9,
+      "home": "bay-area-buccaneers",
+      "away": "sagemont-cowboys"
+    },
+    {
+      "week": 10,
+      "home": "la-porte-texans",
+      "away": "bay-area-buccaneers"
+    },
+    {
+      "week": 11,
+      "home": "manvel-texans",
+      "away": "bay-area-buccaneers"
+    },
+    {
+      "week": 1,
+      "home": "dickinson-gators",
+      "away": "brazosport-longhorns"
+    },
+    {
+      "week": 3,
+      "home": "brazosport-longhorns",
+      "away": "pearland-patriots"
+    },
+    {
+      "week": 4,
+      "home": "santa-fe-braves",
+      "away": "brazosport-longhorns"
+    },
+    {
+      "week": 5,
+      "home": "brazosport-longhorns",
+      "away": "pearland-texans"
+    },
+    {
+      "week": 6,
+      "home": "pearland-hurricanes",
+      "away": "brazosport-longhorns"
+    },
+    {
+      "week": 7,
+      "home": "brazosport-longhorns",
+      "away": "east-end-eagles"
+    },
+    {
+      "week": 8,
+      "home": "la-porte-texans",
+      "away": "brazosport-longhorns"
+    },
+    {
+      "week": 10,
+      "home": "texas-city-stingrays",
+      "away": "brazosport-longhorns"
+    },
+    {
+      "week": 2,
+      "home": "dickinson-gators",
+      "away": "manvel-texans"
+    },
+    {
+      "week": 3,
+      "home": "pearland-texans",
+      "away": "dickinson-gators"
+    },
+    {
+      "week": 4,
+      "home": "dickinson-gators",
+      "away": "east-end-eagles"
+    },
+    {
+      "week": 5,
+      "home": "pasadena-panthers",
+      "away": "dickinson-gators"
+    },
+    {
+      "week": 7,
+      "home": "magnolia-park-sharks",
+      "away": "dickinson-gators"
+    },
+    {
+      "week": 9,
+      "home": "la-marque-chargers",
+      "away": "dickinson-gators"
+    },
+    {
+      "week": 10,
+      "home": "santa-fe-braves",
+      "away": "dickinson-gators"
+    },
+    {
+      "week": 11,
+      "home": "dickinson-gators",
+      "away": "la-porte-texans"
+    },
+    {
+      "week": 1,
+      "home": "pasadena-panthers",
+      "away": "east-end-eagles"
+    },
+    {
+      "week": 2,
+      "home": "east-end-eagles",
+      "away": "texas-city-stingrays"
+    },
+    {
+      "week": 5,
+      "home": "east-end-eagles",
+      "away": "santa-fe-braves"
+    },
+    {
+      "week": 6,
+      "home": "east-end-eagles",
+      "away": "la-porte-texans"
+    },
+    {
+      "week": 8,
+      "home": "sagemont-cowboys",
+      "away": "east-end-eagles"
+    },
+    {
+      "week": 9,
+      "home": "east-end-eagles",
+      "away": "manvel-texans"
+    },
+    {
+      "week": 11,
+      "home": "magnolia-park-sharks",
+      "away": "east-end-eagles"
+    },
+    {
+      "week": 1,
+      "home": "hitchcock-red-raiders",
+      "away": "la-porte-texans"
+    },
+    {
+      "week": 2,
+      "home": "pearland-patriots",
+      "away": "hitchcock-red-raiders"
+    },
+    {
+      "week": 3,
+      "home": "hitchcock-red-raiders",
+      "away": "manvel-texans"
+    },
+    {
+      "week": 7,
+      "home": "hitchcock-red-raiders",
+      "away": "sagemont-cowboys"
+    },
+    {
+      "week": 8,
+      "home": "texas-city-stingrays",
+      "away": "hitchcock-red-raiders"
+    },
+    {
+      "week": 9,
+      "home": "hitchcock-red-raiders",
+      "away": "pearland-hurricanes"
+    },
+    {
+      "week": 10,
+      "home": "hitchcock-red-raiders",
+      "away": "la-marque-chargers"
+    },
+    {
+      "week": 11,
+      "home": "league-city-49ers",
+      "away": "hitchcock-red-raiders"
+    },
+    {
+      "week": 1,
+      "home": "santa-fe-braves",
+      "away": "la-marque-chargers"
+    },
+    {
+      "week": 3,
+      "home": "la-porte-texans",
+      "away": "la-marque-chargers"
+    },
+    {
+      "week": 5,
+      "home": "sagemont-cowboys",
+      "away": "la-marque-chargers"
+    },
+    {
+      "week": 6,
+      "home": "la-marque-chargers",
+      "away": "league-city-49ers"
+    },
+    {
+      "week": 7,
+      "home": "pearland-patriots",
+      "away": "la-marque-chargers"
+    },
+    {
+      "week": 8,
+      "home": "la-marque-chargers",
+      "away": "magnolia-park-sharks"
+    },
+    {
+      "week": 11,
+      "home": "la-marque-chargers",
+      "away": "texas-city-stingrays"
+    },
+    {
+      "week": 2,
+      "home": "pasadena-panthers",
+      "away": "la-porte-texans"
+    },
+    {
+      "week": 4,
+      "home": "la-porte-texans",
+      "away": "texas-city-stingrays"
+    },
+    {
+      "week": 7,
+      "home": "la-porte-texans",
+      "away": "manvel-texans"
+    },
+    {
+      "week": 9,
+      "home": "league-city-49ers",
+      "away": "la-porte-texans"
+    },
+    {
+      "week": 1,
+      "home": "manvel-texans",
+      "away": "league-city-49ers"
+    },
+    {
+      "week": 2,
+      "home": "league-city-49ers",
+      "away": "magnolia-park-sharks"
+    },
+    {
+      "week": 4,
+      "home": "pearland-hurricanes",
+      "away": "league-city-49ers"
+    },
+    {
+      "week": 5,
+      "home": "league-city-49ers",
+      "away": "texas-city-stingrays"
+    },
+    {
+      "week": 8,
+      "home": "league-city-49ers",
+      "away": "pearland-texans"
+    },
+    {
+      "week": 1,
+      "home": "texas-city-stingrays",
+      "away": "magnolia-park-sharks"
+    },
+    {
+      "week": 3,
+      "home": "magnolia-park-sharks",
+      "away": "santa-fe-braves"
+    },
+    {
+      "week": 4,
+      "home": "magnolia-park-sharks",
+      "away": "sagemont-cowboys"
+    },
+    {
+      "week": 6,
+      "home": "pearland-patriots",
+      "away": "magnolia-park-sharks"
+    },
+    {
+      "week": 9,
+      "home": "magnolia-park-sharks",
+      "away": "pasadena-panthers"
+    },
+    {
+      "week": 10,
+      "home": "pearland-texans",
+      "away": "magnolia-park-sharks"
+    },
+    {
+      "week": 4,
+      "home": "manvel-texans",
+      "away": "pearland-patriots"
+    },
+    {
+      "week": 5,
+      "home": "manvel-texans",
+      "away": "pearland-hurricanes"
+    },
+    {
+      "week": 6,
+      "home": "pearland-texans",
+      "away": "manvel-texans"
+    },
+    {
+      "week": 3,
+      "home": "texas-city-stingrays",
+      "away": "pasadena-panthers"
+    },
+    {
+      "week": 4,
+      "home": "pearland-texans",
+      "away": "pasadena-panthers"
+    },
+    {
+      "week": 7,
+      "home": "pearland-hurricanes",
+      "away": "pasadena-panthers"
+    },
+    {
+      "week": 10,
+      "home": "sagemont-cowboys",
+      "away": "pasadena-panthers"
+    },
+    {
+      "week": 11,
+      "home": "pasadena-panthers",
+      "away": "santa-fe-braves"
+    },
+    {
+      "week": 2,
+      "home": "pearland-hurricanes",
+      "away": "santa-fe-braves"
+    },
+    {
+      "week": 3,
+      "home": "sagemont-cowboys",
+      "away": "pearland-hurricanes"
+    },
+    {
+      "week": 10,
+      "home": "pearland-patriots",
+      "away": "pearland-hurricanes"
+    },
+    {
+      "week": 11,
+      "home": "pearland-hurricanes",
+      "away": "pearland-texans"
+    },
+    {
+      "week": 1,
+      "home": "pearland-texans",
+      "away": "pearland-patriots"
+    },
+    {
+      "week": 9,
+      "home": "santa-fe-braves",
+      "away": "pearland-patriots"
+    },
+    {
+      "week": 11,
+      "home": "pearland-patriots",
+      "away": "sagemont-cowboys"
+    },
+    {
+      "week": 2,
+      "home": "sagemont-cowboys",
+      "away": "pearland-texans"
+    },
+    {
+      "week": 7,
+      "home": "santa-fe-braves",
+      "away": "pearland-texans"
+    },
+    {
+      "week": 6,
+      "home": "texas-city-stingrays",
+      "away": "santa-fe-braves"
+    }
+  ]
+}
