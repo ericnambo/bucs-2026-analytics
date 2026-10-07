@@ -255,3 +255,14 @@ test('next opponent is the first scheduled game without a result', () => {
   assert.equal(season.nextOpponent('d').opponent, 'b');
   assert.equal(load(cleanGames()).nextOpponent('zzz'), null);
 });
+
+test('schedule rows list every scheduled game with its score once played, plus byes', () => {
+  const rows = load(cleanGames()).scheduleRows();
+  assert.equal(rows.length, schedule.games.length);
+  const w1 = rows.find((r) => r.week === 1 && r.home === 'a');
+  assert.deepEqual([w1.awayName, w1.homeName, w1.awayScore, w1.homeScore, w1.played], ['B', 'A', 6, 20, true]);
+  const w3 = rows.find((r) => r.week === 3 && r.home === 'a');
+  assert.deepEqual([w3.awayScore, w3.homeScore, w3.played], [null, null, false]);
+  assert.equal(rows.find((r) => r.week === 2 && r.home === 'd').forfeit, true);
+  assert.deepEqual(rows.filter((r) => r.week === 4).map((r) => r.byes), [['B', 'C']]);
+});

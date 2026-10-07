@@ -153,6 +153,29 @@
       teams,
       schedule: scheduled,
       games: normalized,
+      // Every scheduled game, with its score once played, and the teams on bye that week.
+      scheduleRows() {
+        const names = new Map(teams.map((t) => [t.id, t.name]));
+        const dates = new Map((schedule.weeks || []).map((w) => [w.week, w.date]));
+        const result = new Map(normalized.map((g) => [`${g.week}|${g.home}|${g.away}`, g]));
+        return [...scheduled].sort((a, b) => a.week - b.week).map((g) => {
+          const r = result.get(`${g.week}|${g.home}|${g.away}`);
+          return {
+            week: g.week,
+            date: dates.get(g.week) || null,
+            home: g.home,
+            away: g.away,
+            homeName: names.get(g.home),
+            awayName: names.get(g.away),
+            homeScore: r ? r.homeScore : null,
+            awayScore: r ? r.awayScore : null,
+            played: Boolean(r),
+            forfeit: Boolean(r && r.forfeit),
+            isBucs: g.home === rules.focusTeam || g.away === rules.focusTeam,
+            byes: this.byes(g.week).map((id) => names.get(id)),
+          };
+        });
+      },
       // Teams with no scheduled game in a week. Byes are ignored in all calculations.
       byes(week) {
         const playing = new Set();
