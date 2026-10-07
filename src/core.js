@@ -216,6 +216,20 @@
     return rows;
   }
 
+  const logistic = (gap, scale) => 1 / (1 + Math.exp(-gap / scale));
+
+  // Small seedable random number generator (mulberry32), so a simulation can be repeated exactly.
+  function makeRandom(seed) {
+    let a = seed >>> 0;
+    return () => {
+      a = (a + 0x6D2B79F5) >>> 0;
+      let t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
   // Matchup from the best back-tested method's rating gap.
   // Win probability is a logistic curve of the gap; the method's scale sets how fast it saturates.
   // Predicted margin reads the same curve in points: gap / scale * marginScale.
@@ -226,7 +240,7 @@
     const scale = rules.ratingScale[method.key];
     const rating = (id) => ratingValue(method, rules, { [method.key]: rowOf.get(id).rating });
     const gap = rating(idA) - rating(idB);
-    const pA = 1 / (1 + Math.exp(-gap / scale));
+    const pA = logistic(gap, scale);
     const favored = gap === 0 ? null : gap > 0 ? idA : idB;
     const resultsOf = (id, opp) => games
       .filter((g) => (g.home === id && g.away === opp) || (g.away === id && g.home === opp))
@@ -257,7 +271,7 @@
       teamB: { id: idB, name: names.get(idB), rating: rating(idB), winProbability: 1 - pA },
       favored,
       favoredName: favored ? names.get(favored) : null,
-      winProbability: 1 / (1 + Math.exp(-Math.abs(gap) / scale)),
+      winProbability: logistic(Math.abs(gap), scale),
       predictedMargin: (Math.abs(gap) / scale) * rules.marginScale,
       method: method.key,
       confidence,
@@ -267,7 +281,17 @@
 
   // Top seeds by official standings (win 1, tie half). Tied teams are split head-to-head;
   // anything head-to-head cannot split is flagged for coin flip or play-in (by-law 5.11.3), never silently resolved.
-  function buildPlayoffPicture(teams, games, rules) {
+  // With a random source (simulation only), ties head-to-head cannot split are settled by coin flip instead of flagged order.
+  function buildPlayoffPicture(teams, games, rules, random) {
+    const flip = (group) => {
+      if (!random) return group;
+      const out = [...group];
+      for (let k = out.length - 1; k > 0; k--) {
+        const m = Math.floor(random() * (k + 1));
+        [out[k], out[m]] = [out[m], out[k]];
+      }
+      return out;
+    };
     const names = new Map(teams.map((t) => [t.id, t.name]));
     const rows = new Map(teams.map((t) => [t.id, { team: t.id, name: t.name, isFocus: t.id === rules.focusTeam, wins: 0, losses: 0, ties: 0 }]));
     for (const g of games) {
@@ -303,8 +327,8 @@
         const [x, y] = group;
         if (h2h.get(x.team) !== h2h.get(y.team)) {
           (h2h.get(x.team) > h2h.get(y.team) ? [x, y] : [y, x]).forEach((row) => ordered.push({ row, tie: null }));
-        } else group.forEach((row) => ordered.push({ row, tie: { kind: 'coin-flip-or-play-in', group } }));
-      } else group.forEach((row) => ordered.push({ row, tie: { kind: 'coin-flip-or-play-in', group } }));
+        } else flip(group).forEach((row) => ordered.push({ row, tie: { kind: 'coin-flip-or-play-in', group } }));
+      } else flip(group).forEach((row) => ordered.push({ row, tie: { kind: 'coin-flip-or-play-in', group } }));
       if (inField && ordered.slice(i, j).some((o) => o.tie)) {
         const tiedNames = group.map((r) => r.name);
         flags.push({
@@ -332,6 +356,69 @@
     return { size: rules.playoffTeams, seeds, pairings, flags };
   }
 
+  // Plays the unplayed scheduled games many times using the best method's win probabilities, then the playoffs.
+  // Playoff rounds re-seed (best remaining seed meets worst); an odd team out gets a bye. Ties head-to-head cannot split are coin flips.
+  // Playoff odds = share of runs in the top seeds; title odds = share of runs that win the playoffs.
+  // Contender/Pretender go to teams in today's playoff picture (see settings for thresholds); each carries its reason in text.
+  function buildOdds(teams, games, scheduled, rules, backTest, rows, options) {
+    const runs = (options && options.runs) || rules.simRuns;
+    const seed = options && options.seed !== undefined ? options.seed : rules.simSeed;
+    const random = makeRandom(seed);
+    const method = bestMethod(backTest);
+    const scale = rules.ratingScale[method.key];
+    const rowOf = new Map(rows.map((r) => [r.team, r]));
+    const rating = (id) => ratingValue(method, rules, { [method.key]: rowOf.get(id).rating });
+    const beats = (a, b) => logistic(rating(a) - rating(b), scale);
+
+    const done = new Set(games.map((g) => `${g.week}|${g.home}|${g.away}`));
+    const remaining = scheduled.filter((g) => !done.has(`${g.week}|${g.home}|${g.away}`));
+    const playoffCount = new Map(teams.map((t) => [t.id, 0]));
+    const titleCount = new Map(teams.map((t) => [t.id, 0]));
+
+    for (let run = 0; run < runs; run++) {
+      const simulated = remaining.map((g) => {
+        const homeWins = random() < beats(g.home, g.away);
+        return { week: g.week, home: g.home, away: g.away, tie: false, forfeit: false, winner: homeWins ? g.home : g.away, loser: homeWins ? g.away : g.home };
+      });
+      let field = buildPlayoffPicture(teams, [...games, ...simulated], rules, random).seeds.map((s) => s.team);
+      field.forEach((id) => playoffCount.set(id, playoffCount.get(id) + 1));
+      while (field.length > 1) {
+        const next = [];
+        let lo = 0;
+        let hi = field.length - 1;
+        for (; lo < hi; lo++, hi--) next.push(random() < beats(field[lo], field[hi]) ? field[lo] : field[hi]);
+        if (lo === hi) next.push(field[lo]);
+        field = next;
+      }
+      if (field.length) titleCount.set(field[0], titleCount.get(field[0]) + 1);
+    }
+
+    const seedOf = new Map(buildPlayoffPicture(teams, games, rules).seeds.map((s) => [s.team, s.seed]));
+    // 100% and 0% are kept for certain outcomes; a simulated near-certainty reads >99% or <1% (same as the page).
+    const pct = (p) => {
+      const n = Math.round(p * 100);
+      return p === 0 || p === 1 ? `${p * 100}%` : n >= 100 ? '>99%' : n < 1 ? '<1%' : `${n}%`;
+    };
+    return teams.map((t) => {
+      const playoffOdds = playoffCount.get(t.id) / runs;
+      const titleOdds = titleCount.get(t.id) / runs;
+      const seedNum = seedOf.get(t.id);
+      const powerRank = rowOf.get(t.id).rank;
+      let label = null;
+      let reason = null;
+      if (seedNum) {
+        const gap = powerRank - seedNum;
+        const why = [];
+        if (gap >= rules.pretenderRankGap) why.push(`its power rank is ${gap} places below its seed`);
+        if (playoffOdds < rules.pretenderMinOdds) why.push(`its playoff odds are under ${pct(rules.pretenderMinOdds)}`);
+        label = why.length ? 'Pretender' : 'Contender';
+        reason = `Seed ${seedNum}, power rank ${powerRank}, playoff odds ${pct(playoffOdds)}: `
+          + (why.length ? `${why.join(' and ')}.` : 'power rank and odds support the seed.');
+      }
+      return { team: t.id, name: t.name, playoffOdds, titleOdds, clinched: playoffOdds === 1, eliminated: playoffOdds === 0, label, reason };
+    });
+  }
+
   function loadSeason({ games, schedule, settings }) {
     const rules = mergeSettings(settings);
     const teams = schedule.teams;
@@ -343,6 +430,7 @@
       powerRanking,
       backTest: () => backTest,
       playoffPicture: () => buildPlayoffPicture(teams, normalized, rules),
+      odds: (options) => buildOdds(teams, normalized, scheduled, rules, backTest, powerRanking(), options),
       matchup: (idA, idB) => buildMatchup(teams, normalized, rules, backTest, powerRanking(), idA, idB),
       // First scheduled game for the team with no result yet.
       nextOpponent(id) {

@@ -35,7 +35,7 @@
     <div id="flags" aria-live="polite"></div>
     <table>
       <caption>Seeds</caption>
-      <thead><tr><th scope="col">Seed</th><th scope="col">Team</th><th scope="col">Record</th><th scope="col">Tie status</th></tr></thead>
+      <thead><tr><th scope="col">Seed</th><th scope="col">Team</th><th scope="col">Record</th><th scope="col">Tie status</th><th scope="col">Label</th></tr></thead>
       <tbody id="seeds"></tbody>
     </table>
     <table>
@@ -43,6 +43,12 @@
       <thead><tr><th scope="col">Matchup</th><th scope="col">Higher seed</th><th scope="col">Lower seed</th></tr></thead>
       <tbody id="pairings"></tbody>
     </table>
+    <table>
+      <caption>Playoff and title odds</caption>
+      <thead><tr><th scope="col">Team</th><th scope="col">Playoff odds</th><th scope="col">Title odds</th><th scope="col">Status</th></tr></thead>
+      <tbody id="odds"></tbody>
+    </table>
+    <p id="odds-note"></p>
   </main>
   <script src="data/season-data.js"></script>
   <script src="src/settings.js"></script>

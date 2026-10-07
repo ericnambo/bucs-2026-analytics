@@ -24,6 +24,13 @@
     eloK: 32,
     // Rating gap per logistic step for each method (margin methods use marginScale; Elo uses the standard 400-point scale).
     ratingScale: { elo: 400 / Math.LN10, winPct: 0.3 },
+    // Simulation: how many seasons to play out, and the seed that makes the result repeatable.
+    simRuns: 5000,
+    simSeed: 2026,
+    // Pretender: a team in the playoff picture whose power rank is this many places below its seed or more,
+    // or whose playoff odds are under the minimum. Otherwise Contender.
+    pretenderRankGap: 4,
+    pretenderMinOdds: 0.5,
   };
   return { defaultSettings };
 });
