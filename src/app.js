@@ -52,5 +52,6 @@
   $('week').addEventListener('change', render);
   $('team').addEventListener('change', render);
   $('reset').addEventListener('click', () => { $('week').value = ''; $('team').value = ''; render(); });
+  BaflExportUI.mount({ filename: 'bafl-peewee-results', getTables: () => [BaflExport.resultsTable(season, { week: $('week').value, team: $('team').value })] });
   render();
 })();

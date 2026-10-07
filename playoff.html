@@ -18,6 +18,7 @@
     tr.bucs th[scope="row"] { border-left: 6px solid #8a1c1c; }
     .flag { border: 2px solid #8a1c1c; padding: .5rem 1rem; margin-bottom: 1rem; }
   </style>
+  <link rel="stylesheet" href="src/print.css">
 </head>
 <body>
   <nav aria-label="Views">
@@ -40,7 +41,7 @@
     </table>
     <table>
       <caption>First-round pairings</caption>
-      <thead><tr><th scope="col">Matchup</th><th scope="col">Higher seed</th><th scope="col">Lower seed</th></tr></thead>
+      <thead><tr><th scope="col">Pairing</th><th scope="col">Higher seed</th><th scope="col">Lower seed</th></tr></thead>
       <tbody id="pairings"></tbody>
     </table>
     <table>
@@ -53,6 +54,8 @@
   <script src="data/season-data.js"></script>
   <script src="src/settings.js"></script>
   <script src="src/core.js"></script>
+  <script src="src/export.js"></script>
+  <script src="src/export-ui.js"></script>
   <script src="src/playoff-app.js"></script>
 </body>
 </html>

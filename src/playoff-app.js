@@ -6,6 +6,8 @@
   const oddsOf = new Map(odds.map((o) => [o.team, o]));
   const label = (s) => `${s.name} (${s.record})${s.isFocus ? ' - Bucs' : ''}`;
 
+  BaflExportUI.mount({ filename: 'bafl-peewee-playoff-picture', getTables: () => BaflExport.playoffTables(season) });
+
   const flags = document.getElementById('flags');
   picture.flags.forEach((f) => {
     const p = document.createElement('p');
@@ -41,14 +43,9 @@
     labelCell.appendChild(why);
   });
 
-  // Exact 100% / 0% only when the outcome is certain; a simulated near-certainty never rounds to them.
-  const percent = (p, certain) => {
-    const n = Math.round(p * 100);
-    if (certain) return `${n}%`;
-    return n >= 100 ? '>99%' : n < 1 ? '<1%' : `${n}%`;
-  };
+  const percent = BaflExport.percent;
   const oddsBody = document.getElementById('odds');
-  [...odds].sort((a, b) => b.playoffOdds - a.playoffOdds || b.titleOdds - a.titleOdds || a.name.localeCompare(b.name)).forEach((o) => {
+  BaflExport.oddsOrder(odds).forEach((o) => {
     const tr = oddsBody.insertRow();
     if (o.team === season.settings.focusTeam) tr.className = 'bucs';
     const th = document.createElement('th');
@@ -57,7 +54,7 @@
     tr.appendChild(th);
     tr.insertCell().textContent = percent(o.playoffOdds, o.clinched || o.eliminated);
     tr.insertCell().textContent = percent(o.titleOdds, o.eliminated);
-    tr.insertCell().textContent = o.clinched ? 'Clinched' : o.eliminated ? 'Eliminated' : 'Alive';
+    tr.insertCell().textContent = BaflExport.oddsStatus(o);
   });
   document.getElementById('odds-note').textContent =
     `Simulated: the remaining scheduled games played ${season.settings.simRuns.toLocaleString()} times using the best back-tested rating. Odds are rough guides, not promises.`;

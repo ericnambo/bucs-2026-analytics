@@ -1,0 +1,20 @@
+.toolbar { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 .5rem; }
+.toolbar button { font: inherit; padding: .4rem .8rem; }
+
+@media print {
+  @page { margin: .4in; }
+  .no-print, nav, .filters, th button::after, th[aria-sort] button::after { display: none !important; }
+  body { max-width: none; margin: 0; padding: 0; font-size: 9pt; color: #000; background: #fff; }
+  h1 { font-size: 14pt; margin: 0 0 .3rem; }
+  h2 { font-size: 12pt; margin: .6rem 0 .2rem; }
+  p { margin: .2rem 0; }
+  table { margin-bottom: .3rem; font-size: 8pt; }
+  th, td { padding: .05rem .3rem; border-color: #000; line-height: 1.15; }
+  caption { padding-bottom: .1rem; }
+  .note { display: inline; }
+  .note::before { content: " "; }
+  tr { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+  th { background: #ddd !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  tr.bucs td, tr.bucs th, .best { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

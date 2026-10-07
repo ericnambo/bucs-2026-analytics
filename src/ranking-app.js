@@ -6,12 +6,7 @@
   const $ = (id) => document.getElementById(id);
   let sort = { key: 'rank', direction: 'asc' };
 
-  const fmt = {
-    avgMargin: (v) => (v === null ? 'n/a' : (v > 0 ? '+' : '') + v.toFixed(1)),
-    adjusted: (v) => (v === null ? 'n/a' : (v > 0 ? '+' : '') + v.toFixed(1)),
-    elo: (v) => (v === null ? 'n/a' : Math.round(v)),
-    sos: (v) => (v === null ? 'n/a' : v.toFixed(3)),
-  };
+  const fmt = BaflExport.fmt;
 
   function buildHeader() {
     const tr = $('head-row');
@@ -95,6 +90,7 @@
       : 'No games to back-test yet. Power rank uses average capped margin.';
   }
 
+  BaflExportUI.mount({ filename: 'bafl-peewee-power-ranking', getTables: () => BaflExport.rankingTables(season, sort) });
   buildHeader();
   buildBackTest();
   render(false);
