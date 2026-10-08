@@ -3,5 +3,8 @@
 .skip-link:focus { top: .5rem; }
 nav a[aria-current="page"] { font-weight: 700; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
 th button, button, select { min-height: 24px; min-width: 24px; }
+/* Phone layout: wide tables scroll inside their own region, not the page. */
+.table-scroll { overflow-x: auto; max-width: 100%; }
+nav ul { flex-wrap: wrap; }
 main:focus { outline: none; }
-@media print { .skip-link { display: none !important; } }
+@media print { .skip-link { display: none !important; } .table-scroll { overflow: visible; } }

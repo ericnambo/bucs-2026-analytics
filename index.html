@@ -46,13 +46,15 @@
       <button type="button" id="reset">Reset filters</button>
     </form>
     <p id="status" role="status"></p>
-    <table>
-      <caption>Peewee game results</caption>
-      <thead>
-        <tr><th scope="col">Week</th><th scope="col">Away team</th><th scope="col">Away score</th><th scope="col">Home team</th><th scope="col">Home score</th><th scope="col">Notes</th></tr>
-      </thead>
-      <tbody id="rows"></tbody>
-    </table>
+    <div class="table-scroll" role="region" aria-label="Peewee game results" tabindex="0">
+      <table>
+        <caption>Peewee game results</caption>
+        <thead>
+          <tr><th scope="col">Week</th><th scope="col">Away team</th><th scope="col">Away score</th><th scope="col">Home team</th><th scope="col">Home score</th><th scope="col">Notes</th></tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
   </main>
   <script src="data/season-data.js"></script>
   <script src="src/settings.js"></script>

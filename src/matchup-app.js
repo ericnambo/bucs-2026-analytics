@@ -67,7 +67,13 @@
         tr.insertCell().textContent = list.map(resultText).join('; ');
       });
     });
-    common.appendChild(table);
+    const scroller = document.createElement('div');
+    scroller.className = 'table-scroll';
+    scroller.setAttribute('role', 'region');
+    scroller.setAttribute('aria-label', cap.textContent);
+    scroller.tabIndex = 0;
+    scroller.appendChild(table);
+    common.appendChild(scroller);
   }
 
   $('team-a').addEventListener('change', render);
