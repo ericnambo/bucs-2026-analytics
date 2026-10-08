@@ -6,12 +6,12 @@
 
 **Blocks:** 16 (Publish on GitHub Pages).
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Every local branch and the `worktree-agent-*` branches are searched for the hint; the result is listed for the owner
-- [ ] The owner confirms which branches to delete; branches not yet merged are called out
-- [ ] Confirmed branches and their worktrees are deleted
-- [ ] A search of all remaining branches and tags finds no coach names, real passwords or the password pattern
+- [x] Every local branch and the `worktree-agent-*` branches are searched for the hint; the result is listed for the owner
+- [x] The owner confirms which branches to delete; branches not yet merged are called out
+- [x] Confirmed branches and their worktrees are deleted
+- [x] A search of all remaining branches and tags finds no coach names, real passwords or the password pattern
 - [ ] Only then does the owner make the repository public (ticket 16)
 
 Source: ticket 16 ("final check of tracked files and history"); ticket 06 audit note to keep the password scheme out of committed files.
