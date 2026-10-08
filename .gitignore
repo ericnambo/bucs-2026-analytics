@@ -4,7 +4,7 @@ BAFL-*.pdf
 2026-Bay-Area-*.jpg
 
 # Local tooling
-.claude/settings.local.json
+.claude/
 node_modules/
 
 # OS junk
