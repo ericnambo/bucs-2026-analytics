@@ -10,7 +10,7 @@ The BAFL Peewee analytics app only runs from a folder on the owner's computer. P
 
 ## Solution
 
-Publish the app as a public website with a free, no-build host (GitHub Pages, default URL). Parents see Results, Power ranking and Schedule freely. Matchup and Playoff picture sit behind a "Coach access" form that accepts any of 8 shared coach passwords and remembers the coach on that device until they lock it. This is a soft gate: it hides the pages, not the data, and the app says nothing that over-promises privacy. A small amount of responsive CSS makes every page usable on a phone (wide tables scroll sideways) and the scoreboard links, which would be broken, are hidden. The restyle to Material 3 token names comes after publishing, as separate work.
+Publish the app as a public website with a free, no-build host (GitHub Pages, default URL). Parents see Results, Power ranking and Schedule freely. Matchup and Playoff picture sit behind a "Coach access" form that accepts any of 9 shared coach passwords and remembers the coach on that device until they lock it. This is a soft gate: it hides the pages, not the data, and the app says nothing that over-promises privacy. A small amount of responsive CSS makes every page usable on a phone (wide tables scroll sideways) and the scoreboard links, which would be broken, are hidden. The restyle to Material 3 token names comes after publishing, as separate work.
 
 ## User Stories
 
@@ -28,7 +28,7 @@ Publish the app as a public website with a free, no-build host (GitHub Pages, de
 12. As a coach, I want focus to land on the page content after I unlock, so that I can start using Matchup or Playoff picture at once.
 13. As a coach on Matchup, I want the same prediction and common-opponents view as before once unlocked, so that nothing about the analysis changes.
 14. As a coach on Playoff picture, I want seeds, tiebreak flags, odds, labels and export to work as before once unlocked, so that nothing regresses.
-15. As the owner, I want 8 separate passwords, so that I can retire one coach's password without changing the rest.
+15. As the owner, I want 9 separate passwords, so that I can retire one coach's password without changing the rest.
 16. As the owner, I want to change or revoke a password by editing a list and republishing, so that I need no server or accounts.
 17. As the owner, I want the real passwords kept out of the repository, on paper and in my phone notes, so that publishing the repo does not publish them.
 18. As the owner, I want hashes in the repo to be unlabeled, so that they do not name coaches.
@@ -48,7 +48,7 @@ Publish the app as a public website with a free, no-build host (GitHub Pages, de
 - **Gate scope**: only Matchup and Playoff picture are gated. Results, Power ranking and Schedule stay public. The Offense/Defense rankings idea stays public too, so no gated-only data exists.
 - **Soft gate, honestly**: gated pages load the same data and scripts as public pages, so the gate hides only the rendered page. Copy must not say "private" or "secure"; the form is headed "Coach access" with a short line that these pages are for coaches.
 - **One new module, the gate**: written in the same dual browser/Node style as the other modules. Its public answer is: given a typed password and the list of accepted hashes, is access granted? It uses SHA-256 and returns a yes/no. It is the only logic the spec adds.
-- **Password list**: 8 SHA-256 hashes, unlabeled, held in one place the gate reads. Changing or revoking a password means editing that list and republishing. The real passwords live only on paper and in the owner's phone notes, never in the repository, issues, specs or commit messages.
+- **Password list**: 9 SHA-256 hashes, unlabeled, held in one place the gate reads. Changing or revoking a password means editing that list and republishing. The real passwords live only on paper and in the owner's phone notes, never in the repository, issues, specs or commit messages.
 - **Unlock memory**: remembered on the device (local storage) with a visible Lock control that clears it. If storage is unavailable the gate must still work for the current page view.
 - **Prompt**: an inline form that replaces the main content of Matchup and Playoff picture (no pop-up dialog, no focus trap). Labeled password input with autocomplete for a current password; paste and autofill allowed (WCAG 3.3.8); the error is text with an alert role and an invalid state on the input; the field is not cleared on error; a visible way back to the public pages (for example Results). After unlock, focus moves to the main content, which is already focusable.
 - **Navigation**: Matchup and Playoff picture stay visible to everyone in the nav. The current-page style and skip link behave as today.

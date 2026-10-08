@@ -1,6 +1,5 @@
 // Accepted Coach access passwords, as SHA-256 hashes (generate with: npm run hash).
-// PLACEHOLDER: these two are DEMO hashes (passwords "demo-coach-1" and "demo-coach-2").
-// Replace them with the real coach hashes before publishing. Unlabeled on purpose.
+// Unlabeled on purpose: no coach names or hints. To change or revoke a password, edit this list and republish.
 window.BaflCoachHashes = [
   '7e829856dc1f1382bb03e83f8252f5f32548a7845097ab2c30b503b5ed06cf53',
   '970aaa326e593d2119b0239184709afd79b74b80ea1a0635a14c2d92437e0cd2',
