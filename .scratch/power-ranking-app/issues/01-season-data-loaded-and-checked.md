@@ -4,7 +4,7 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [x] Every Weeks 1-8 Peewee game is in the data with week, home team, away team, scores and source scoreboard reference
 - [x] The full schedule (Weeks 1-11, byes included) is in the data

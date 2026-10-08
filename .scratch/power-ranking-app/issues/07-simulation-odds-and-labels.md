@@ -4,10 +4,10 @@
 
 **Blocked by:** 05, 06
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Playoff odds and title odds shown for every team
-- [ ] Each team in the picture is tagged Contender or Pretender with a reason in text
-- [ ] Same seed gives the same results
-- [ ] Clinched teams show 100% and eliminated teams 0%
-- [ ] Core module tests use a fixed seed and assert stable properties
+- [x] Playoff odds and title odds shown for every team
+- [x] Each team in the picture is tagged Contender or Pretender with a reason in text
+- [x] Same seed gives the same results
+- [x] Clinched teams show 100% and eliminated teams 0%
+- [x] Core module tests use a fixed seed and assert stable properties

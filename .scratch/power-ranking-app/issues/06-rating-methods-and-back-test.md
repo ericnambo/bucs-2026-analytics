@@ -4,10 +4,10 @@
 
 **Blocked by:** 03, 04
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Elo and opponent-adjusted columns appear in the ranking table
-- [ ] Each method shows back-test accuracy and sample size
-- [ ] Best method is highlighted without relying on color alone
-- [ ] Power rank and Matchup use the best method
-- [ ] Core module tests cover back-test scoring on a fixture season with a known best method
+- [x] Elo and opponent-adjusted columns appear in the ranking table
+- [x] Each method shows back-test accuracy and sample size
+- [x] Best method is highlighted without relying on color alone
+- [x] Power rank and Matchup use the best method
+- [x] Core module tests cover back-test scoring on a fixture season with a known best method

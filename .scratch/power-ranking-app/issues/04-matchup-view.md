@@ -4,11 +4,11 @@
 
 **Blocked by:** 03
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Defaults to the Bucs' next scheduled opponent
-- [ ] Shows favored team, win probability and predicted margin
-- [ ] Shows a confidence note that mentions the small sample
-- [ ] Lists common opponents with each team's result against them
-- [ ] Works fully by keyboard and screen reader
-- [ ] Core module tests cover favored side, symmetry (swapping teams flips the result) and no common opponents
+- [x] Defaults to the Bucs' next scheduled opponent
+- [x] Shows favored team, win probability and predicted margin
+- [x] Shows a confidence note that mentions the small sample
+- [x] Lists common opponents with each team's result against them
+- [x] Works fully by keyboard and screen reader
+- [x] Core module tests cover favored side, symmetry (swapping teams flips the result) and no common opponents

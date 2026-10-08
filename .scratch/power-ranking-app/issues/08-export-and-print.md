@@ -4,8 +4,8 @@
 
 **Blocked by:** 04, 07
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] CSV and Excel export for ranking, results and playoff picture
-- [ ] Exported values match what is on screen
-- [ ] Print layout is readable on one page per view
+- [x] CSV and Excel export for ranking, results and playoff picture
+- [x] Exported values match what is on screen
+- [x] Print layout is readable on one page per view

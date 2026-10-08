@@ -4,10 +4,10 @@
 
 **Blocked by:** 02
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Top 8 seeds shown with record and the four first-round pairings
-- [ ] Head-to-head tiebreak applied between two tied teams
-- [ ] Three-way or unresolved ties are flagged for coin flip or play-in
-- [ ] Playoff size comes from the settings
-- [ ] Core module tests cover a clean seeding, a head-to-head tiebreak and a flagged tie
+- [x] Top 8 seeds shown with record and the four first-round pairings
+- [x] Head-to-head tiebreak applied between two tied teams
+- [x] Three-way or unresolved ties are flagged for coin flip or play-in
+- [x] Playoff size comes from the settings
+- [x] Core module tests cover a clean seeding, a head-to-head tiebreak and a flagged tie

@@ -4,11 +4,11 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Opens by double-clicking from a folder with no install or server
-- [ ] One row per game with week, teams, score and a working source scoreboard link
-- [ ] Filters by week and team work by keyboard
-- [ ] Forfeits and extraction flags are marked in text, not color alone
-- [ ] Bucs games are highlighted in text and style
-- [ ] Table is a semantic, screen-reader-friendly table
+- [x] Opens by double-clicking from a folder with no install or server
+- [x] One row per game with week, teams, score and a working source scoreboard link
+- [x] Filters by week and team work by keyboard
+- [x] Forfeits and extraction flags are marked in text, not color alone
+- [x] Bucs games are highlighted in text and style
+- [x] Table is a semantic, screen-reader-friendly table
