@@ -4,17 +4,17 @@
 
 **Blocked by:** 12 (Coach password check and hash helper).
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Locked state: Matchup shows only the Coach access form, the explanation and the link back; no analysis is rendered
-- [ ] Unlocked state: Matchup behaves exactly as before
-- [ ] Labeled password input with current-password autocomplete; paste and autofill allowed
-- [ ] Error is text with an alert role and an invalid state on the input; the field is not cleared
-- [ ] After unlock focus lands on the main content; the Lock control is keyboard reachable and visible, and locking returns to the form
-- [ ] If device storage is unavailable the gate still works for the current page view
-- [ ] Wording says "Coach access" and does not claim the data is private or secure
-- [ ] Demo hashes are clearly marked as placeholders to be replaced
-- [ ] Keyboard-only and NVDA passes done; results added to the audit notes
-- [ ] The full test suite passes
+- [x] Locked state: Matchup shows only the Coach access form, the explanation and the link back; no analysis is rendered
+- [x] Unlocked state: Matchup behaves exactly as before
+- [x] Labeled password input with current-password autocomplete; paste and autofill allowed
+- [x] Error is text with an alert role and an invalid state on the input; the field is not cleared
+- [x] After unlock focus lands on the main content; the Lock control is keyboard reachable and visible, and locking returns to the form
+- [x] If device storage is unavailable the gate still works for the current page view
+- [x] Wording says "Coach access" and does not claim the data is private or secure
+- [x] Demo hashes are clearly marked as placeholders to be replaced
+- [x] Keyboard-only and NVDA passes done; results added to the audit notes
+- [x] The full test suite passes
 
 Source: spec user stories 6-12, 19-21; map ticket "Gate behavior and password handling".

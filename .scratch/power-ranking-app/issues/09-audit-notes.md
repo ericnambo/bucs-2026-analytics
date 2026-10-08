@@ -27,5 +27,5 @@ Audited all five views (Power ranking, Matchup, Playoff picture, Schedule, Resul
 
 ## Ticket 13: Coach access on Matchup
 - Checked in Chrome (scripted): locked state renders no analysis; wrong password shows alert text, sets aria-invalid and keeps the typed value; correct password (with surrounding spaces) unlocks, focus lands on main, device remembers; Lock clears it and focus returns to the password field.
-- Keyboard-only pass: **pending, owner to run**.
-- Screen reader (NVDA) pass: **pending, owner to run**.
+- Keyboard-only pass: **Pass**. Checked by the user.
+- Screen reader (NVDA) pass: **Pass**. Checked by the user.
