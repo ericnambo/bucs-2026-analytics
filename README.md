@@ -14,4 +14,5 @@ Static site (plain HTML + JS). Open `index.html` in a browser.
 
 - Terminology lives in [CONTEXT.md](CONTEXT.md).
 - Scoreboard images, the schedule image, and the by-laws PDF are local-only (git-ignored). "Scoreboard" links on the Results page won't work in a fresh clone.
-- Coach-only password access is a future goal. GitHub Pages can't gate a site, and private-repo Pages needs a paid plan, so that will mean a separate host.
+- Coach access (Matchup and Playoff picture pages) is a soft gate: `src/coach-hashes.js` holds 9 unlabeled SHA-256 hashes. Make a hash with `npm run hash`. Real passwords are never stored in the repo.
+- Revoke a password: delete its line in `src/coach-hashes.js` and republish.

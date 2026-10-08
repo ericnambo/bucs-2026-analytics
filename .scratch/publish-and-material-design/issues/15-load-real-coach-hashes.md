@@ -4,12 +4,12 @@
 
 **Blocked by:** 12 (Coach password check and hash helper), 13 (Coach access on Matchup).
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] The list holds 9 unlabeled hashes; no coach names or hints are anywhere in the repository
-- [ ] The demo hashes and any demo password are gone from the repository
-- [ ] The owner has confirmed on a locked page that a real password unlocks and a wrong one does not
-- [ ] A search of the working tree and git history for the real passwords and the pattern finds nothing
-- [ ] Revoking one password is documented in a short note: remove its hash and republish
+- [x] The list holds 9 unlabeled hashes; no coach names or hints are anywhere in the repository
+- [x] The demo hashes and any demo password are gone from the repository
+- [x] The owner has confirmed on a locked page that a real password unlocks and a wrong one does not
+- [x] A search of the working tree and git history for the real passwords and the pattern finds nothing
+- [x] Revoking one password is documented in a short note: remove its hash and republish
 
 Source: spec user stories 15-18; map ticket "Gate behavior and password handling".
