@@ -42,15 +42,7 @@
         s.textContent = n;
         notes.appendChild(s);
       });
-      const src = document.createElement('td');
-      const a = document.createElement('a');
-      a.href = r.source;
-      a.textContent = `Week ${r.week} scoreboard`;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.setAttribute('aria-label', `Week ${r.week} scoreboard image: ${r.awayName} at ${r.homeName} (opens in a new tab)`);
-      src.appendChild(a);
-      tr.append(notes, src);
+      tr.append(notes);
       body.appendChild(tr);
     });
     $('status').textContent = `Showing ${rows.length} of ${season.games.length} games.`;

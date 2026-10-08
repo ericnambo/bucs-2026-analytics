@@ -4,7 +4,9 @@
 
 **Blocked by:** None (can start immediately).
 
-**Status:** ready-for-agent
+**Status:** done
+
+**Decision:** The export keeps each game's scoreboard filename (the "Source" column in CSV/print). Only the on-screen links and the Source column on Results are removed. The filename is still useful for auditing, and keeping it leaves the export untouched.
 
 - [ ] Results shows scores, notes and filters as before, with no scoreboard links and no empty or misaligned column
 - [ ] The decision about the export's scoreboard filename is written in this ticket
