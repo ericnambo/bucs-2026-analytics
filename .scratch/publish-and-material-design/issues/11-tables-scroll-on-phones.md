@@ -4,12 +4,12 @@
 
 **Blocked by:** None (can start immediately).
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] At phone width no page has horizontal page scroll; each wide table scrolls inside its container
-- [ ] A scrolling table container is reachable and scrollable by keyboard and has an accessible name
-- [ ] Target sizes, focus visibility and contrast stay at the audited standard
-- [ ] Verified on a real phone and at a narrow browser width
-- [ ] Desktop layout and print output are unchanged
+- [x] At phone width no page has horizontal page scroll; each wide table scrolls inside its container
+- [x] A scrolling table container is reachable and scrollable by keyboard and has an accessible name
+- [x] Target sizes, focus visibility and contrast stay at the audited standard
+- [x] Verified on a real phone and at a narrow browser width
+- [x] Desktop layout and print output are unchanged
 
 Source: spec "Implementation Decisions" (minimal phone layout).
