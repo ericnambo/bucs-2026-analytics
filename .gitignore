@@ -1,0 +1,12 @@
+# Raw source files (dev-only inputs)
+BAFL-*.jpg
+BAFL-*.pdf
+2026-Bay-Area-*.jpg
+
+# Local tooling
+.claude/settings.local.json
+node_modules/
+
+# OS junk
+.DS_Store
+Thumbs.db
