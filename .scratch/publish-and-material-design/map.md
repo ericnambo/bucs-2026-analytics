@@ -27,13 +27,12 @@ A locked set of decisions and a spec covering (a) publishing the BAFL Peewee app
 - [Public data audit](issues/06-public-data-audit.md): repo is private now; nothing sensitive in code or history; scoreboard links would 404; keep the password scheme out of committed files.
 - [Scoreboard links on the public site](issues/09-scoreboard-links.md): hide the links in the first public version; whether the column stays at all is a later question.
 - [Gate behavior and password handling](issues/05-gate-behavior.md): inline coach form, remembered on device with a Lock control, nav links visible to all, 8 unlabeled SHA-256 hashes, redeploy to change.
+- [Design system and React decision](issues/08-design-system-and-react.md): stay plain HTML/CSS/JS; hand-rolled responsive CSS with Material 3 token names; minimal phone fix ships with the first publish.
 
 ## Not yet specified
 
-- Analytics and privacy for parent visitors.
-- Material / design-system theming, mobile layout, and an a11y re-audit plan (after the design system is chosen).
-- Whether the spec constraint "no framework, no build step" is revisited (depends on the Design system and React decision).
-- Deploy / CI flow.
+- Analytics and privacy for parent visitors (default: none; confirm in the spec).
+- Table and nav layout on phones, theming details, and the a11y re-audit plan: design work for the restyle effort, not decisions this map needs.
 
 ## Out of scope
 
