@@ -4,7 +4,7 @@
 
 **Blocked by:** 08
 
-**Status:** done (pending manual check)
+**Status:** done
 
 - [x] Every view is fully operable by keyboard with visible focus
 - [x] Tables, sort state and filters are announced correctly by a screen reader

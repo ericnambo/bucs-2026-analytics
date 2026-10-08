@@ -1,6 +1,6 @@
 # 09 audit notes: WCAG 2.2 AA
 
-Audited all five views (Power ranking, Matchup, Playoff picture, Schedule, Results) and the print layout by reading the markup, CSS and render code. The user does the final manual check with a screen reader and keyboard.
+Audited all five views (Power ranking, Matchup, Playoff picture, Schedule, Results) and the print layout by reading the markup, CSS and render code. The user did the final manual screen reader check (NVDA): pass.
 
 ## Already passing
 - Tables use caption, `th scope="col"` and `th scope="row"`. Sort buttons sit inside `th` with `aria-sort`, and a `role="status"` line announces "Sorted by X".
@@ -20,4 +20,7 @@ Audited all five views (Power ranking, Matchup, Playoff picture, Schedule, Resul
 ## Deliberately left open
 - Wide tables scroll sideways at very narrow widths (320px). Data tables are exempt from the reflow rule (1.4.10), so left as is.
 - Empty score cells for unplayed games on the Schedule are blank; the Status column says "Scheduled".
-- Not tested with a real screen reader or in forced-colors mode; that is the manual check.
+- Not tested in forced-colors mode.
+
+## Manual check
+- Screen reader (NVDA): **Pass**. Checked by the user.
