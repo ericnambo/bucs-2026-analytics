@@ -32,5 +32,5 @@ Audited all five views (Power ranking, Matchup, Playoff picture, Schedule, Resul
 
 ## Ticket 14: Coach access on Playoff picture
 - Same gate markup and script as Matchup (shared form, hashes, unlock memory).
-- Keyboard-only pass: **Pending**. To be checked by the user.
-- Screen reader (NVDA) pass: **Pending**. To be checked by the user.
+- Keyboard-only pass: **Pass**. Checked by the user.
+- Screen reader (NVDA) pass: **Pass**. Checked by the user.
