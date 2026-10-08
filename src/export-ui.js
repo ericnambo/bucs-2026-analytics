@@ -36,7 +36,7 @@
       status.textContent = `Downloaded ${options.filename}.xml (opens in Excel)`;
     });
     add('Print or save as PDF', () => window.print());
-    const h1 = document.querySelector('main h1');
+    const h1 = document.querySelector('#gated-content h1') || document.querySelector('main h1');
     h1.after(bar, status);
   }
 

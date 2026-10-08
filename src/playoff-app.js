@@ -1,5 +1,5 @@
-// Browser wiring for the Playoff picture view.
-(function () {
+// Browser wiring for the Playoff picture view. Runs only after Coach access is unlocked.
+BaflGateUI.guard(function () {
   const season = BaflCore.loadSeason({ games: BaflData.games, schedule: BaflData.schedule, settings: BaflSettings.defaultSettings });
   const picture = season.playoffPicture();
   const odds = season.odds();
@@ -69,4 +69,4 @@
     tr.insertCell().textContent = label(p.high);
     tr.insertCell().textContent = label(p.low);
   });
-})();
+});

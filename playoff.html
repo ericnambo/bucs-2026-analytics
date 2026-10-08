@@ -33,35 +33,55 @@
     </ul>
   </nav>
   <main id="main" tabindex="-1">
-    <h1>BAFL Peewee 2026: Playoff picture</h1>
-    <p>If the playoffs started today. Seeds follow the official standings (win 1, tie half); ties are broken head-to-head.</p>
-    <div id="flags" aria-live="polite"></div>
-    <div class="table-scroll" role="region" aria-label="Seeds" tabindex="0">
-      <table>
-        <caption>Seeds</caption>
-        <thead><tr><th scope="col">Seed</th><th scope="col">Team</th><th scope="col">Record</th><th scope="col">Tie status</th><th scope="col">Label</th></tr></thead>
-        <tbody id="seeds"></tbody>
-      </table>
+    <section id="coach-gate" aria-labelledby="gate-heading">
+      <h1 id="gate-heading">Coach access</h1>
+      <p>Matchup and Playoff picture are for coaches. Enter a coach password to continue.</p>
+      <p>This only hides these pages. It does not make the data private or secure.</p>
+      <form id="gate-form" novalidate>
+        <div class="gate-field">
+          <label for="gate-password">Coach password</label>
+          <input id="gate-password" type="password" autocomplete="current-password" aria-describedby="gate-error">
+        </div>
+        <p id="gate-error" class="gate-error" role="alert"></p>
+        <button type="submit">Unlock</button>
+      </form>
+      <p><a href="index.html">Back to Results</a></p>
+    </section>
+    <div id="gated-content" hidden>
+      <h1>BAFL Peewee 2026: Playoff picture</h1>
+      <p><button id="lock-button" type="button">Lock Coach access</button></p>
+      <p>If the playoffs started today. Seeds follow the official standings (win 1, tie half); ties are broken head-to-head.</p>
+      <div id="flags" aria-live="polite"></div>
+      <div class="table-scroll" role="region" aria-label="Seeds" tabindex="0">
+        <table>
+          <caption>Seeds</caption>
+          <thead><tr><th scope="col">Seed</th><th scope="col">Team</th><th scope="col">Record</th><th scope="col">Tie status</th><th scope="col">Label</th></tr></thead>
+          <tbody id="seeds"></tbody>
+        </table>
+      </div>
+      <div class="table-scroll" role="region" aria-label="First-round pairings" tabindex="0">
+        <table>
+          <caption>First-round pairings</caption>
+          <thead><tr><th scope="col">Pairing</th><th scope="col">Higher seed</th><th scope="col">Lower seed</th></tr></thead>
+          <tbody id="pairings"></tbody>
+        </table>
+      </div>
+      <div class="table-scroll" role="region" aria-label="Playoff and title odds" tabindex="0">
+        <table>
+          <caption>Playoff and title odds</caption>
+          <thead><tr><th scope="col">Team</th><th scope="col">Playoff odds</th><th scope="col">Title odds</th><th scope="col">Status</th></tr></thead>
+          <tbody id="odds"></tbody>
+        </table>
+      </div>
+      <p id="odds-note"></p>
     </div>
-    <div class="table-scroll" role="region" aria-label="First-round pairings" tabindex="0">
-      <table>
-        <caption>First-round pairings</caption>
-        <thead><tr><th scope="col">Pairing</th><th scope="col">Higher seed</th><th scope="col">Lower seed</th></tr></thead>
-        <tbody id="pairings"></tbody>
-      </table>
-    </div>
-    <div class="table-scroll" role="region" aria-label="Playoff and title odds" tabindex="0">
-      <table>
-        <caption>Playoff and title odds</caption>
-        <thead><tr><th scope="col">Team</th><th scope="col">Playoff odds</th><th scope="col">Title odds</th><th scope="col">Status</th></tr></thead>
-        <tbody id="odds"></tbody>
-      </table>
-    </div>
-    <p id="odds-note"></p>
   </main>
   <script src="data/season-data.js"></script>
   <script src="src/settings.js"></script>
   <script src="src/core.js"></script>
+  <script src="src/gate.js"></script>
+  <script src="src/coach-hashes.js"></script>
+  <script src="src/gate-ui.js"></script>
   <script src="src/export.js"></script>
   <script src="src/export-ui.js"></script>
   <script src="src/playoff-app.js"></script>
