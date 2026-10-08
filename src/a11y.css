@@ -8,3 +8,8 @@ th button, button, select { min-height: 24px; min-width: 24px; }
 nav ul { flex-wrap: wrap; }
 main:focus { outline: none; }
 @media print { .skip-link { display: none !important; } .table-scroll { overflow: visible; } }
+/* Coach access form */
+.gate-field { display: flex; flex-direction: column; max-width: 24rem; margin-bottom: .5rem; }
+.gate-field input { font: inherit; padding: .4rem; min-height: 24px; }
+.gate-field input[aria-invalid="true"] { border: 3px solid #b00020; }
+.gate-error { color: #b00020; font-weight: 600; margin: .25rem 0 .75rem; }

@@ -32,23 +32,43 @@
     </ul>
   </nav>
   <main id="main" tabindex="-1">
-    <h1>BAFL Peewee 2026: Matchup</h1>
-    <div class="pickers">
-      <label>Team A <select id="team-a"></select></label>
-      <label>Team B <select id="team-b"></select></label>
-    </div>
-    <p id="default-note"></p>
-    <section aria-live="polite" aria-labelledby="result-heading">
-      <h2 id="result-heading">Prediction</h2>
-      <p id="summary" class="summary"></p>
-      <p id="confidence"></p>
+    <section id="coach-gate" aria-labelledby="gate-heading">
+      <h1 id="gate-heading">Coach access</h1>
+      <p>Matchup and Playoff picture are for coaches. Enter a coach password to continue.</p>
+      <p>This only hides these pages. It does not make the data private or secure.</p>
+      <form id="gate-form" novalidate>
+        <div class="gate-field">
+          <label for="gate-password">Coach password</label>
+          <input id="gate-password" type="password" autocomplete="current-password" aria-describedby="gate-error">
+        </div>
+        <p id="gate-error" class="gate-error" role="alert"></p>
+        <button type="submit">Unlock</button>
+      </form>
+      <p><a href="index.html">Back to Results</a></p>
     </section>
-    <h2>Common opponents</h2>
-    <div id="common"></div>
+    <div id="gated-content" hidden>
+      <h1>BAFL Peewee 2026: Matchup</h1>
+      <p><button id="lock-button" type="button">Lock Coach access</button></p>
+      <div class="pickers">
+        <label>Team A <select id="team-a"></select></label>
+        <label>Team B <select id="team-b"></select></label>
+      </div>
+      <p id="default-note"></p>
+      <section aria-live="polite" aria-labelledby="result-heading">
+        <h2 id="result-heading">Prediction</h2>
+        <p id="summary" class="summary"></p>
+        <p id="confidence"></p>
+      </section>
+      <h2>Common opponents</h2>
+      <div id="common"></div>
+    </div>
   </main>
   <script src="data/season-data.js"></script>
   <script src="src/settings.js"></script>
   <script src="src/core.js"></script>
+  <script src="src/gate.js"></script>
+  <script src="src/coach-hashes.js"></script>
+  <script src="src/gate-ui.js"></script>
   <script src="src/matchup-app.js"></script>
 </body>
 </html>

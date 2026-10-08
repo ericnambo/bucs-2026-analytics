@@ -83,3 +83,7 @@ _Avoid_: Game (a game has already been or will be played)
 **Source scoreboard**:
 The weekly scoreboard image a game's score was read from; every game links back to it for verification.
 _Avoid_: Raw data, screenshot
+
+**Coach access**:
+The user-facing name for the soft gate on Matchup and Playoff picture: an inline password form that hides those pages until a coach password is entered. It hides the pages, not the data, and makes no privacy claim.
+_Avoid_: Login, private, secure

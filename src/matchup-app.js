@@ -1,5 +1,5 @@
-// Browser wiring for the Matchup view.
-(function () {
+// Browser wiring for the Matchup view. Runs only after Coach access is unlocked.
+BaflGateUI.guard(function () {
   const season = BaflCore.loadSeason({ games: BaflData.games, schedule: BaflData.schedule, settings: BaflSettings.defaultSettings });
   const $ = (id) => document.getElementById(id);
   const focus = season.settings.focusTeam;
@@ -79,4 +79,4 @@
   $('team-a').addEventListener('change', render);
   $('team-b').addEventListener('change', render);
   render();
-})();
+});
