@@ -27,7 +27,14 @@
     rows.forEach((r) => {
       const tr = document.createElement('tr');
       if (r.isBucs) tr.className = 'bucs';
-      tr.append(cell('th', r.week, 'row'), cell('td', r.awayName), cell('td', r.awayScore), cell('td', r.homeName), cell('td', r.homeScore));
+      const week = cell('th', r.week, 'row');
+      if (r.isBucs) {
+        const tag = document.createElement('span');
+        tag.className = 'note';
+        tag.textContent = 'Bucs game';
+        week.appendChild(tag);
+      }
+      tr.append(week, cell('td', r.awayName), cell('td', r.awayScore), cell('td', r.homeName), cell('td', r.homeScore));
       const notes = cell('td', '');
       r.notes.forEach((n) => {
         const s = document.createElement('span');

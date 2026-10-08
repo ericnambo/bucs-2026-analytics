@@ -24,8 +24,10 @@
     .note { display: block; font-size: .9em; }
   </style>
   <link rel="stylesheet" href="src/print.css">
+  <link rel="stylesheet" href="src/a11y.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <nav aria-label="Views">
     <ul>
       <li><a href="ranking.html" aria-current="page">Power ranking</a></li>
@@ -35,7 +37,7 @@
       <li><a href="index.html">Results</a></li>
     </ul>
   </nav>
-  <main>
+  <main id="main" tabindex="-1">
     <h1>BAFL Peewee 2026: Power ranking</h1>
     <p>Default order is the best back-tested rating, then record. Margins are capped at 42 points per game. Ties count as half a win. Forfeits count in the record but not in margin. Strength of schedule is the average win percentage of a team's opponents.</p>
     <p id="status" role="status"></p>

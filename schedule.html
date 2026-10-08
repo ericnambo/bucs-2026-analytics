@@ -17,8 +17,10 @@
     tr.bucs td, tr.bucs th[scope="row"] { background: #fff3d6; font-weight: 700; }
     tr.bucs th[scope="row"] { border-left: 6px solid #8a1c1c; }
   </style>
+  <link rel="stylesheet" href="src/a11y.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <nav aria-label="Views">
     <ul>
       <li><a href="ranking.html">Power ranking</a></li>
@@ -28,7 +30,7 @@
       <li><a href="index.html">Results</a></li>
     </ul>
   </nav>
-  <main>
+  <main id="main" tabindex="-1">
     <h1>BAFL Peewee 2026: Schedule</h1>
     <p>Every scheduled game, with the score once it has been played. Games not yet played show "Scheduled".</p>
     <table>

@@ -4,10 +4,10 @@
 
 **Blocked by:** 08
 
-**Status:** ready-for-agent
+**Status:** done (pending manual check)
 
-- [ ] Every view is fully operable by keyboard with visible focus
-- [ ] Tables, sort state and filters are announced correctly by a screen reader
-- [ ] Contrast meets AA in all views and the print layout
-- [ ] No status is conveyed by color alone
-- [ ] Audit notes recorded with anything deliberately left open
+- [x] Every view is fully operable by keyboard with visible focus
+- [x] Tables, sort state and filters are announced correctly by a screen reader
+- [x] Contrast meets AA in all views and the print layout
+- [x] No status is conveyed by color alone
+- [x] Audit notes recorded with anything deliberately left open

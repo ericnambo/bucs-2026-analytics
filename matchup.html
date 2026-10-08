@@ -18,8 +18,10 @@
     :focus-visible { outline: 3px solid #0b4fa8; outline-offset: 2px; }
     .summary { font-size: 1.2em; font-weight: 700; }
   </style>
+  <link rel="stylesheet" href="src/a11y.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <nav aria-label="Views">
     <ul>
       <li><a href="ranking.html">Power ranking</a></li>
@@ -29,7 +31,7 @@
       <li><a href="index.html">Results</a></li>
     </ul>
   </nav>
-  <main>
+  <main id="main" tabindex="-1">
     <h1>BAFL Peewee 2026: Matchup</h1>
     <div class="pickers">
       <label>Team A <select id="team-a"></select></label>

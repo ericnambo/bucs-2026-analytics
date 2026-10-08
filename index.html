@@ -21,8 +21,10 @@
     .note { display: block; font-size: .9em; }
   </style>
   <link rel="stylesheet" href="src/print.css">
+  <link rel="stylesheet" href="src/a11y.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <nav aria-label="Views">
     <ul>
       <li><a href="ranking.html">Power ranking</a></li>
@@ -32,9 +34,9 @@
       <li><a href="index.html" aria-current="page">Results</a></li>
     </ul>
   </nav>
-  <main>
+  <main id="main" tabindex="-1">
     <h1>BAFL Peewee 2026: Results</h1>
-    <form class="filters" id="filters" onsubmit="return false">
+    <form class="filters" id="filters" aria-label="Filter results" onsubmit="return false">
       <label>Week
         <select id="week"><option value="">All weeks</option></select>
       </label>

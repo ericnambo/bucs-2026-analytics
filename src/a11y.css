@@ -1,0 +1,7 @@
+/* Shared accessibility styles: skip link, current page, minimum target size. */
+.skip-link { position: absolute; left: .5rem; top: -4rem; padding: .5rem 1rem; background: #fff; color: #0b4fa8; border: 2px solid #0b4fa8; z-index: 10; }
+.skip-link:focus { top: .5rem; }
+nav a[aria-current="page"] { font-weight: 700; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
+th button, button, select { min-height: 24px; min-width: 24px; }
+main:focus { outline: none; }
+@media print { .skip-link { display: none !important; } }

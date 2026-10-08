@@ -19,8 +19,10 @@
     .flag { border: 2px solid #8a1c1c; padding: .5rem 1rem; margin-bottom: 1rem; }
   </style>
   <link rel="stylesheet" href="src/print.css">
+  <link rel="stylesheet" href="src/a11y.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <nav aria-label="Views">
     <ul>
       <li><a href="ranking.html">Power ranking</a></li>
@@ -30,7 +32,7 @@
       <li><a href="index.html">Results</a></li>
     </ul>
   </nav>
-  <main>
+  <main id="main" tabindex="-1">
     <h1>BAFL Peewee 2026: Playoff picture</h1>
     <p>If the playoffs started today. Seeds follow the official standings (win 1, tie half); ties are broken head-to-head.</p>
     <div id="flags" aria-live="polite"></div>
